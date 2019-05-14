@@ -2,11 +2,19 @@
   "name": "react-kit",
   "version": "1.0.0",
   "description": "react kit",
-  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "webpack --config ./config/webpack.dev.js"
+  },
   "repository": "https://github.com/woshixixi/react-kit.git",
   "author": "czhang <czhang@yuansuan.cn>",
   "license": "MIT",
   "dependencies": {
-    "react": "^16.8.6"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
   }
 }

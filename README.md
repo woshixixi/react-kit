@@ -10,3 +10,7 @@
 
 1)  add react `yarn add react`
 2)  add react.development.js in html
+
+3)  add webpack webpack-cli
+4)  add webpack.dev.js as config
+5)  add react-dom for react-dom.render
