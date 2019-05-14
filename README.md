@@ -7,3 +7,6 @@
 5. add antd
 6. add redux
 7. add mobx
+
+1)  add react `yarn add react`
+2)  add react.development.js in html
