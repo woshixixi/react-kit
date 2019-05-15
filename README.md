@@ -8,7 +8,7 @@
   - [ ] add html-webpack-plugin
   - [ ] build clear dist
   - [ ] hot-load
-  - [ ] add prod
+  - [x] add prod
   - [ ] code split (chunk)
   - [ ] TypeScript
 

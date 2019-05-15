@@ -10,7 +10,6 @@ class LikeButton extends React.Component {
   }
 
   render() {
-    consle.log('...hello')
     if (this.state.liked) {
       return 'Hello world I like it'
     }

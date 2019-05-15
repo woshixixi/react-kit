@@ -4,7 +4,9 @@
   "description": "react kit",
   "private": true,
   "scripts": {
-    "start": "webpack --config ./config/webpack.dev.js"
+    "start": "webpack --config ./config/webpack.dev.js",
+    "prod": "webpack --config ./config/webpack.prod.js",
+    "watch": "webpack --watch"
   },
   "repository": "https://github.com/woshixixi/react-kit.git",
   "author": "czhang <czhang@yuansuan.cn>",
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2"
+    "webpack-cli": "^3.3.2",
+    "webpack-merge": "^4.2.1"
   }
 }
