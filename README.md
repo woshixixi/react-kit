@@ -5,7 +5,7 @@
   - [x] add babel-loader
   - [x] add source map
   - [ ] add style css image support
-  - [ ] add html-webpack-plugin
+  - [ ] add `html-webpack-plugin`
   - [ ] build clear dist
   - [ ] hot-load
   - [x] add prod

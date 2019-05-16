@@ -4,9 +4,9 @@
   "description": "react kit",
   "private": true,
   "scripts": {
-    "start": "webpack --config ./config/webpack.dev.js",
-    "prod": "webpack --config ./config/webpack.prod.js",
-    "watch": "webpack --watch"
+    "start": "node ./config/server.js",
+    "oldstart": "webpack --config ./config/webpack.dev.js",
+    "build": "webpack --config ./config/webpack.prod.js"
   },
   "repository": "https://github.com/woshixixi/react-kit.git",
   "author": "czhang <czhang@yuansuan.cn>",
@@ -20,8 +20,10 @@
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
+    "express": "^4.16.4",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
+    "webpack-dev-middleware": "^3.7.0",
     "webpack-merge": "^4.2.1"
   }
 }
