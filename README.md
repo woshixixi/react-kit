@@ -1,4 +1,4 @@
-# Build kit step by step
+# Build Kit Step By Step
 
 - [ ] add webpack
 
@@ -7,7 +7,7 @@
   - [ ] add style css image support
   - [x] add `html-webpack-plugin`
   - [x] add `webpack-dev-middleware`
-  - [ ] build clear dist
+  - [x] build clear dist
   - [ ] hot-load
   - [x] add prod
   - [ ] code split (chunk)
