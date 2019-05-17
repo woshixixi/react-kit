@@ -5,7 +5,7 @@ const webpack = require('webpack')
 
 const devConfig = require('./webpack.dev')
 
-const PORT = 3000
+const PORT = 8888
 
 const app = express()
 const compiler = webpack(devConfig)

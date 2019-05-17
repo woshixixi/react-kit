@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-const e = React.createElement
-
 class LikeButton extends React.Component {
   constructor(props) {
     super(props)
@@ -18,5 +16,4 @@ class LikeButton extends React.Component {
   }
 }
 
-const domContainer = document.querySelector('#like_button_container')
-ReactDOM.render(e(LikeButton), domContainer)
+ReactDOM.render(<LikeButton />, document.getElementById('root'))
