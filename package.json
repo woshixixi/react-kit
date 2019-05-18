@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "start": "node ./config/server.js",
+    "test": "babel-node ./config/test3.js",
     "build": "rm -rf ./dist && webpack --config ./config/webpack.prod.js"
   },
   "repository": "https://github.com/woshixixi/react-kit.git",
-  "author": "czhang <czhang@yuansuan.cn>",
+  "author": "woshixixi <zhangchenxi7@outlook.com>",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.4.4",
