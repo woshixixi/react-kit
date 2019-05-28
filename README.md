@@ -11,7 +11,8 @@
   - [x] hot-load
     - [x] add `webpack-hot-middleware`
   - [x] add prod
-  - [ ] code split (chunk)
+  - [x] code split (chunk)
+    - [ ] add lazy load:`react-loadable`
   - [ ] TypeScript
 
 - [x] add react
