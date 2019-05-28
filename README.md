@@ -1,5 +1,7 @@
 # Build Kit Step By Step
 
+## Support:
+
 - [ ] add webpack
 
   - [x] add babel-loader
@@ -21,6 +23,8 @@
 - [ ] add antd
 - [ ] add redux
 - [ ] add mobx
+
+## Steps:
 
 1.  add react `yarn add react`
 2.  add react.development.js in html
