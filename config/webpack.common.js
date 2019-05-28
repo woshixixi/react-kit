@@ -2,7 +2,7 @@ const path = require('path')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['webpack-hot-middleware/client', './index.js'],
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, '../dist'),

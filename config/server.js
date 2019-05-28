@@ -1,5 +1,6 @@
 const express = require('express')
 const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpack = require('webpack')
 
 const devConfig = require('./webpack.dev')
@@ -11,6 +12,12 @@ const compiler = webpack(devConfig)
 
 app.use(
   webpackDevMiddleware(compiler, {
+    publicPath: devConfig.output.publicPath
+  })
+)
+
+app.use(
+  webpackHotMiddleware(compiler, {
     publicPath: devConfig.output.publicPath
   })
 )

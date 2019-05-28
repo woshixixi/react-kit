@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
+import Test from './test'
 
-class LikeButton extends React.Component {
+export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = { liked: false }
   }
 
   render() {
-    if (this.state.liked) {
-      return 'Hello world I like it'
-    }
-
-    return <button onClick={() => this.setState({ liked: true })}>Like</button>
+    return (
+      <div>
+        <button onClick={() => this.setState({ liked: true })}>like</button>
+        {this.state.liked && <p>like is clicked</p>}
+        <Test />
+      </div>
+    )
   }
 }
-
-ReactDOM.render(<LikeButton />, document.getElementById('root'))

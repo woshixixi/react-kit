@@ -8,7 +8,8 @@
   - [x] add `html-webpack-plugin`
   - [x] add `webpack-dev-middleware`
   - [x] build clear dist
-  - [ ] hot-load
+  - [x] hot-load
+    - [x] add `webpack-hot-middleware`
   - [x] add prod
   - [ ] code split (chunk)
   - [ ] TypeScript
@@ -28,5 +29,12 @@
 5.  add `react-dom` for react-dom.render
 
 6.  add `babel` for jsx&es6 support:
-    `yarn add @babel/core @babel/preset-env @babel/preset-react`
-    use `babel-loader` of webpack
+
+    1. `yarn add @babel/core @babel/preset-env @babel/preset-react`
+    2. use `babel-loader` of webpack
+
+7.  add `webpack-hot-middleware`:
+    1. `yarn add webpack-hot-middleware`
+    2. webpack.HotModuleReplacementPlugin
+    3. if(module.hot)...
+    4. entry file add: webpack-hot-middleware/client
