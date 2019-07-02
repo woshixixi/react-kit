@@ -25,7 +25,7 @@ export default class Parent extends React.Component {
 
   shouldComponentUpdate() {
     console.log('parent shouldComponentUpdate')
-    return false
+    return true
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {

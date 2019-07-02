@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default class Boy extends React.Component {
+export default class Boy extends React.PureComponent {
   constructor(props) {
     super(props)
     console.log('boy consturctor ')
