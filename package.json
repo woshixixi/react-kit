@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./config/server.js",
     "test": "babel-node ./config/test3.js",
-    "build": "rm -rf ./dist && webpack --config ./config/webpack.prod.js"
+    "build": "rm -rf ./dist && webpack --config ./config/prod.js"
   },
   "repository": "https://github.com/woshixixi/react-kit.git",
   "author": "woshixixi <zhangchenxi7@outlook.com>",

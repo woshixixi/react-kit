@@ -3,7 +3,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const webpack = require('webpack')
 
-const devConfig = require('./webpack.dev')
+const devConfig = require('./dev')
 
 const PORT = 8888
 
