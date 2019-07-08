@@ -9,7 +9,10 @@ export default class Parent extends React.Component {
 
   state = {
     like: false,
-    changed: false
+    changed: false,
+    boyName: {
+      names: ['aaa']
+    }
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -45,18 +48,29 @@ export default class Parent extends React.Component {
   //   console.log('parent componentwillMount')
   // }
 
+  onAddName = () => {
+    this.setState({
+      bodyName: {
+        names: ['aaa', 'bbb']
+      }
+    })
+  }
+
   render() {
-    console.log('parent render')
+    console.log('parent render', this.state.boyName)
     return (
       <div>
         parent name:{this.props.name}
-        <Boy />
+        <Boy name={this.state.boyName} />
         {this.state.like ? 'like this compoent' : 'not like'}
         {this.state.changed ? 'changed state' : 'not changed'}
         <button
           className="btn"
           onClick={() => this.setState({ changed: true })}>
           change state
+        </button>
+        <button className="btn" onClick={this.onAddName}>
+          change boy name
         </button>
       </div>
     )

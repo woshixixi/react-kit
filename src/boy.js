@@ -15,7 +15,11 @@ export default class Boy extends React.PureComponent {
   }
 
   render() {
-    console.log('boy render')
-    return <div>boy</div>
+    const { name } = this.props
+    console.log('boy render', name)
+    const l = name.names.length
+    const lI = name.names[l - 1]
+
+    return <div>boy:{lI}</div>
   }
 }
