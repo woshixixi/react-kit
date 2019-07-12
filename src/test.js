@@ -1,21 +1,16 @@
 import React, { Component } from 'react'
-
+import TestChild from './testChild'
 export default class Test extends React.Component {
-  render() {
-    return <div>Test22 Page</div>
+  shouldComponentUpdate() {
+    return false
   }
-}
 
-function ToolBar() {
-  return <div> toolboar</div>
-}
-
-class Button extends React.Component {
   render() {
+    console.log('test render')
     return (
       <div>
-        button
-        <ToolBar />
+        Test22 Page
+        <TestChild />
       </div>
     )
   }

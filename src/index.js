@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Test from './test'
 import Parent from './parent'
+import { ThemContext } from './context'
+
 // import './app.css'
 
 export default class App extends React.Component {
@@ -8,16 +10,22 @@ export default class App extends React.Component {
     super(props)
   }
 
-  state = { liked: false, name: 'parent1' }
+  state = { liked: false, name: 'parent1', them: 'them001' }
 
   onClickLike = () => {
     const oldLike = this.state.liked
     this.setState({ liked: !oldLike })
   }
 
+  changeThem = them => {
+    console.log('parent change them:', them)
+    this.setState({ them: them })
+  }
+
   render() {
     return (
-      <div>
+      <ThemContext.Provider
+        value={{ them: this.state.them, changeThem: this.changeThem }}>
         <button className="btn" onClick={this.onClickLike}>
           like
         </button>
@@ -29,7 +37,7 @@ export default class App extends React.Component {
         {this.state.liked && <p>like is clicked</p>}
         <Test />
         {this.state.liked ? <Parent name={this.state.name} /> : null}
-      </div>
+      </ThemContext.Provider>
     )
   }
 }
