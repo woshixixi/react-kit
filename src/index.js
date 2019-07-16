@@ -4,7 +4,7 @@ import Parent from './parent'
 import PersonInput from './PersonInput'
 import { ThemContext } from './context'
 
-// import './app.css'
+import './app.css'
 
 export default class App extends React.Component {
   constructor(props) {

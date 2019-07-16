@@ -6,7 +6,7 @@
 
   - [x] add babel-loader
   - [x] add source map
-  - [ ] add style css image support
+  - [x] add style css image support
   - [x] add `html-webpack-plugin`
   - [x] add `webpack-dev-middleware`
   - [x] build clear dist
@@ -16,6 +16,7 @@
   - [x] code split (chunk)
     - [ ] add lazy load:`react-loadable`
   - [ ] TypeScript
+  - [ ] prettier
 
 - [x] add react
 - [ ] add router
