@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Test from './test'
 import Parent from './parent'
+import PersonInput from './PersonInput'
 import { ThemContext } from './context'
 
 // import './app.css'
@@ -37,6 +38,7 @@ export default class App extends React.Component {
         {this.state.liked && <p>like is clicked</p>}
         <Test />
         {this.state.liked ? <Parent name={this.state.name} /> : null}
+        <PersonInput />
       </ThemContext.Provider>
     )
   }
