@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ThemContext } from './context'
+import { ThemContext } from '../context'
 
 class TestChild extends React.Component {
   changeThem = () => {

@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
@@ -21,6 +22,19 @@ app.use(
     publicPath: devConfig.output.publicPath
   })
 )
+
+// browserRouter all / url return index.html
+app.use('*', (req, res, next) => {
+  const filename = path.resolve(compiler.outputPath, 'index.html')
+  compiler.outputFileSystem.readFile(filename, (err, result) => {
+    if (err) {
+      return next(err)
+    }
+    res.set('content-type', 'text/html')
+    res.send(result)
+    res.end()
+  })
+})
 
 app.listen(PORT, () => {
   console.log('http://localhost:' + PORT)

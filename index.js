@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import App from './src'
+import AppRouter from './src/router'
 
 function main() {
-  ReactDOM.render(<App />, document.getElementById('root'))
+  ReactDOM.render(<AppRouter />, document.getElementById('root'))
 }
 
 main()

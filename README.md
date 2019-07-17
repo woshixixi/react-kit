@@ -19,7 +19,7 @@
   - [ ] prettier
 
 - [x] add react
-- [ ] add router
+- [x] add router
 - [ ] add ts
 - [ ] add antd
 - [ ] add redux
@@ -40,7 +40,10 @@
     2. use `babel-loader` of webpack
 
 7.  add `webpack-hot-middleware`:
+
     1. `yarn add webpack-hot-middleware`
     2. webpack.HotModuleReplacementPlugin
     3. if(module.hot)...
     4. entry file add: webpack-hot-middleware/client
+
+8.  browserRouter & hashRouter
