@@ -3,7 +3,10 @@ const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: ['webpack-hot-middleware/client?reload=true', './index.js'],
+  entry: [
+    'webpaindexindexck-hot-middleware/client?reload=true',
+    './src/index.tsx'
+  ],
   output: {
     filename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, '../dist'),
@@ -17,11 +20,16 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'ts-loader'
+          }
+        ]
       },
       {
         test: /\.css$/,
