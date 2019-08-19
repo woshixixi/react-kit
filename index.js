@@ -7,7 +7,3 @@ function main() {
 }
 
 main()
-
-if (module.hot) {
-  module.hot.accept()
-}

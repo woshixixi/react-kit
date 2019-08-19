@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: ['webpack-hot-middleware/client', './index.js'],
+  entry: ['webpack-hot-middleware/client?reload=true', './index.js'],
   output: {
     filename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, '../dist'),
@@ -20,13 +20,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: [
-              ['@babel/plugin-proposal-class-properties', { loose: true }]
-            ]
-          }
+          loader: 'babel-loader'
         }
       },
       {
