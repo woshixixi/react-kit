@@ -1,17 +1,46 @@
 import * as React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import App from './app'
-import CurrentUser from './pages/currentUser'
-import PersonInput from './pages/PersonInput'
+import Loadable from 'react-loadable'
+
+const PAGES = [
+  {
+    component: () => import('./app'),
+    path: '/'
+  },
+  {
+    component: () => import('./pages/currentUser'),
+    path: '/current'
+  },
+  {
+    component: () => import('./pages/PersonInput'),
+    path: '/input'
+  }
+]
+
+const Loading = ({ error }) => {
+  if (error) {
+    throw error
+  }
+
+  return <div>loading</div>
+}
 
 export default class AppRouter extends React.Component<any, any> {
   render() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={App} />
-          <Route exact path="/current" component={CurrentUser} />
-          <Route exact path="/input" component={PersonInput} />
+          {PAGES.map(p => (
+            <Route
+              exact
+              path={p.path}
+              key={p.path}
+              component={Loadable({
+                loader: p.component,
+                loading: Loading
+              })}
+            />
+          ))}
         </Switch>
       </BrowserRouter>
     )

@@ -14,7 +14,7 @@
     - [x] add `webpack-hot-middleware`
   - [x] add prod
   - [x] code split (chunk)
-    - [ ] add lazy load:`react-loadable`
+    - [x] add lazy load:`react-loadable`
   - [x] TypeScript
   - [ ] prettier
   - [x] add webpack analyzer
