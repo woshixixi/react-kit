@@ -5,8 +5,10 @@
   "private": true,
   "scripts": {
     "start": "node ./config/server.js",
+    "start:analyze": "ANALYZE_MODE=true node ./config/server.js",
     "test": "babel-node ./config/test3.js",
-    "build": "rm -rf ./dist && webpack --config ./config/prod.js"
+    "build": "rm -rf ./dist && webpack --config ./config/prod.js",
+    "build:analyze": "rm -rf ./dist && ANALYZE_MODE=true webpack --config ./config/prod.js"
   },
   "repository": "https://github.com/woshixixi/react-kit.git",
   "author": "woshixixi <zhangchenxi7@outlook.com>",
@@ -33,6 +35,7 @@
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
     "webpack": "^4.31.0",
+    "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.3.2",
     "webpack-dev-middleware": "^3.7.0",
     "webpack-hot-middleware": "^2.25.0",

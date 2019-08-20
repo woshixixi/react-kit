@@ -17,6 +17,7 @@
     - [ ] add lazy load:`react-loadable`
   - [x] TypeScript
   - [ ] prettier
+  - [x] add webpack analyzer
 
 - [x] add react
 - [x] add router
@@ -43,7 +44,7 @@
 
     1. `yarn add webpack-hot-middleware`
     2. webpack.HotModuleReplacementPlugin
-    3. if(module.hot)...
+    3. if(module.hot)... // reload=true
     4. entry file add: webpack-hot-middleware/client
 
 8.  browserRouter & hashRouter

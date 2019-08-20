@@ -1,6 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 
 module.exports = {
   entry: ['webpack-hot-middleware/client?reload=true', './src/index.tsx'],
@@ -51,5 +53,5 @@ module.exports = {
       template: path.resolve(__dirname, '../index.html'),
       inject: 'body'
     })
-  ]
+  ].concat(process.env.ANALYZE_MODE ? [new BundleAnalyzerPlugin()] : [])
 }
