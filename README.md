@@ -15,12 +15,12 @@
   - [x] add prod
   - [x] code split (chunk)
     - [ ] add lazy load:`react-loadable`
-  - [ ] TypeScript
+  - [x] TypeScript
   - [ ] prettier
 
 - [x] add react
 - [x] add router
-- [ ] add ts
+- [x] add ts
 - [ ] add antd
 - [ ] add redux
 - [ ] add mobx

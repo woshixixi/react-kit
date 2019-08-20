@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default class Mobile extends React.PureComponent {
+export default class Mobile extends React.PureComponent<any, any> {
   render() {
     console.log('render mobile')
     return (

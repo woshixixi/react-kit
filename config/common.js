@@ -3,10 +3,7 @@ const webpack = require('webpack')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: [
-    'webpaindexindexck-hot-middleware/client?reload=true',
-    './src/index.tsx'
-  ],
+  entry: ['webpack-hot-middleware/client?reload=true', './src/index.tsx'],
   output: {
     filename: '[name].[hash].bundle.js',
     path: path.resolve(__dirname, '../dist'),
@@ -16,6 +13,9 @@ module.exports = {
     splitChunks: {
       chunks: 'all'
     }
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js']
   },
   module: {
     rules: [

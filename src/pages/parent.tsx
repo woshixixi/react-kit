@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Boy from './boy'
 
-export default class Parent extends React.Component {
+export default class Parent extends React.Component<any, any> {
   constructor(props) {
     super(props)
     console.log('parent...constructore')

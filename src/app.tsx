@@ -6,7 +6,7 @@ import { ThemContext } from './context'
 
 import './app.css'
 
-export default class App extends React.Component {
+export default class App extends React.Component<any, any> {
   state = { liked: false, name: 'parent1', them: 'them001' }
 
   onClickLike = () => {
