@@ -1,12 +1,19 @@
 .btn {
-  width: 100px;
-  height: 40px;
-  color: black;
-  background-color: #ccc;
-  margin-right: 20px;
+    width: 100px;
+    height: 40px;
+    color: black;
+    background-color: #ccc;
+    margin-right: 20px;
 }
 
-img {
-  width: 100px;
-  height: 100px;
+.bg {
+    width: 100%;
+}
+
+.app {
+    background-image: url(../resource/bg.png);
+    width: 100vw;
+    height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat;
 }

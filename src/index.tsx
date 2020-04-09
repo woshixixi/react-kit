@@ -1,9 +1,9 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import AppRouter from './router'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import App from './app';
 
 function main() {
-  ReactDOM.render(<AppRouter />, document.getElementById('root'))
+    ReactDOM.render(<App />, document.getElementById('root'));
 }
 
-main()
+main();

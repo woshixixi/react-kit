@@ -1,1 +1,4 @@
-export default new Map([['test', require('./test.jpeg')]])
+export default new Map([
+    ['calender', require('./calender.png')],
+    ['bg', require('./bg.png')]
+]);
