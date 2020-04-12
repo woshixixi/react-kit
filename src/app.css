@@ -6,14 +6,140 @@
     margin-right: 20px;
 }
 
-.bg {
+.title {
+    width: 304px;
+    height: 12px;
+    margin-left: calc((100% - 304px) / 2);
+}
+
+.close {
+    width: 29px;
+    height: 29px;
+}
+
+.header {
     width: 100%;
+    height: 30px;
+    display: flex;
+    align-items: center;
 }
 
 .app {
-    background-image: url(../resource/bg.png);
+    background-image: url(../resource/background@3x.png);
     width: 100vw;
     height: 100vh;
     background-size: contain;
     background-repeat: no-repeat;
+}
+
+.card-body {
+    background-image: url(../resource/rectangle@3x.png);
+    width: 69px;
+    height: 80px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.cards {
+    width: 100%;
+    margin-top: calc((100vh - 64vw - 480px) / 2 + 64vw);
+    display: flex;
+    justify-content: center;
+}
+
+.cards-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.card-title {
+    width: 57px;
+}
+
+.card-top {
+    width: 57px;
+    background-image: url(../resource/orangerectangle@3x.png);
+    height: 29px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    display: flex;
+    font-size: 12px;
+}
+
+.check-circle {
+    background-image: url(../resource/checkinframe@3x.png);
+    width: 120px;
+    height: 120px;
+    background-size: cover;
+    margin: 20px auto;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(78, 182, 190);
+    font-size: 20px;
+    flex-direction: column;
+    position: absolute;
+    bottom: 40px;
+    left: calc(50% - 60px);
+}
+
+.day-check {
+    background-image: url(../resource/circle@3x.png);
+    width: 34px;
+    height: 34px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 11px;
+    margin-top: 8px;
+}
+
+.gift {
+    width: 32px;
+}
+
+.tick {
+    width: 32px;
+}
+
+.coupon {
+    width: 35px;
+}
+
+.point {
+    width: 18px;
+    height: 18px;
+    margin-left: 5px;
+}
+
+.card-point {
+    width: 63px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.check-text {
+    margin: 0;
+}
+
+.check-in {
+    width: 50px;
+}
+
+.wheel {
+    width: 54px;
+    height: 54px;
+    position: fixed;
+    top: calc(100% - 58px);
 }
