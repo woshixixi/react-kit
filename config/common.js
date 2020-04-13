@@ -51,6 +51,7 @@ module.exports = {
         new htmlWebpackPlugin({
             template: path.resolve(__dirname, '../index.html'),
             inject: 'body'
-        })
+        }),
+        new webpack.HotModuleReplacementPlugin()
     ].concat(process.env.ANALYZE_MODE ? [new BundleAnalyzerPlugin()] : [])
 };
