@@ -6,6 +6,8 @@ export default new Map([
     ['coupon', require('./coupon@3x.png')],
     ['point', require('./pointicon@3x.png')],
     ['checkIn', require('./check-in.png')],
+    ['checkInGray', require('./checkin-gray.png')],
     ['wheel', require('./wheeliconpressed@3x.png')],
+    ['totalPoint', require('./pointsframe@3x.png')],
     ['gift', require('./gifticon@3x.png')]
 ]);

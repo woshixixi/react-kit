@@ -143,3 +143,32 @@
     position: fixed;
     top: calc(100% - 58px);
 }
+
+.totalPoint {
+    width: 111px;
+    height: 32px;
+    position: fixed;
+    top: calc(100% - 58px);
+    right: 0;
+}
+
+.totalPointNumber {
+    color: white;
+    width: 72px;
+    height: 32px;
+    position: fixed;
+    top: calc(100% - 65px);
+    right: 0;
+}
+
+.check-in-gray {
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+    color: rgb(78, 182, 190);
+    font-size: 20px;
+    flex-direction: column;
+    position: absolute;
+    bottom: 40px;
+    left: calc(50% - 60px);
+}

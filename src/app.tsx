@@ -17,7 +17,8 @@ export default class App extends React.Component<any, any> {
             { type: 2, point: 90, gifts: { coupon_id: 1, source_type: 1 } }
         ],
         sinInDays: 0,
-        hasSinIn: false
+        hasSinIn: false,
+        totalPoint: 0
     };
 
     componentDidMount() {
@@ -33,7 +34,7 @@ export default class App extends React.Component<any, any> {
     fetchPage = () => {
         axios
             // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/activitys', {
-            .get('https://beta-api.foroo.co.uk/api/api/v1/activitys', {
+            .get('https://beta-api.foroo.co.uk/api/v1/activitys', {
                 headers: {
                     token: this.token
                 },
@@ -44,6 +45,17 @@ export default class App extends React.Component<any, any> {
             .then((res) => {
                 this.setState({ listData: res.data.data.data, sinInDays: res.data.data.sin_in_days });
             });
+        axios
+            .get('https://beta-api.foroo.co.uk/api/v1/points', {
+                headers: {
+                    token: this.token
+                }
+            })
+            .then((res) => {
+                this.setState({ totalPoint: res.data.data.point });
+            });
+
+        //
     };
 
     onCheckIn = () => {
@@ -52,7 +64,7 @@ export default class App extends React.Component<any, any> {
         }
         axios
             // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/points', {
-            .get('https://beta-api.foroo.co.uk/api/api/v1/points', {
+            .get('https://beta-api.foroo.co.uk/api/v1/points', {
                 headers: {
                     token: this.token
                 },
@@ -62,15 +74,15 @@ export default class App extends React.Component<any, any> {
             })
             .then((res) => {
                 const { sinInDays } = this.state;
-                this.setState({ sinInDays: sinInDays + 1, hasSinIn: true });
+                this.setState({ sinInDays: sinInDays + 1, hasSinIn: true, totalPoint: res.data.data.point });
             });
     };
 
     fetchCheckIn = () => {};
 
     render() {
-        console.log(this.state.listData);
-        const { listData, sinInDays } = this.state;
+        console.log('listdata:', this.state.listData);
+        const { listData, sinInDays, totalPoint, hasSinIn } = this.state;
         const firstTreeDays = listData.slice(0, 3);
         const secondTreeDays = listData.slice(3, 6);
         const lastDay = listData[6];
@@ -121,10 +133,18 @@ export default class App extends React.Component<any, any> {
                         </div>
                     </div>
                 </div>
-                <div className='check-circle' onClick={this.onCheckIn}>
-                    <img className='check-in' src={Resource.get('checkIn')} />
-                </div>
+
+                {hasSinIn ? (
+                    <img className='check-in-gray' src={Resource.get('checkInGray')} />
+                ) : (
+                    <div className='check-circle' onClick={this.onCheckIn}>
+                        <img className='check-in' src={Resource.get('checkIn')} />
+                    </div>
+                )}
+
                 <img className='wheel' src={Resource.get('wheel')} />
+                <img className='totalPoint' src={Resource.get('totalPoint')}></img>
+                <p className='totalPointNumber'>{totalPoint}</p>
             </div>
         );
     }
