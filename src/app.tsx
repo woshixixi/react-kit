@@ -24,11 +24,18 @@ export default class App extends React.Component<any, any> {
         this.fetchPage();
     }
 
+    // token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0NCwidG9rZW5fdmVyc2lvbiI6IjVlOTQ2OGQxM2NjMzkifQ.ABI4fKPrYPb6jWKI7hlJalCVl1PLng8H6PRgd6_hhwI';
+
+    get token() {
+        return window.location.href.split('?')[1].split('=')[1];
+    }
+
     fetchPage = () => {
         axios
-            .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/activitys', {
+            // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/activitys', {
+            .get('https://beta-api.foroo.co.uk/api/api/v1/activitys', {
                 headers: {
-                    token: 'aaa'
+                    token: this.token
                 },
                 params: {
                     type: 1
@@ -44,9 +51,10 @@ export default class App extends React.Component<any, any> {
             return;
         }
         axios
-            .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/points', {
+            // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/points', {
+            .get('https://beta-api.foroo.co.uk/api/api/v1/points', {
                 headers: {
-                    token: 'aaa'
+                    token: this.token
                 },
                 params: {
                     type: 2
