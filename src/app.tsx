@@ -14,11 +14,11 @@ export default class App extends React.Component<any, any> {
             { type: 1, point: 60 },
             { type: 1, point: 70 },
             { type: 1, point: 80 },
-            { type: 2, point: 90, gifts: { coupon_id: 1, source_type: 1 } }
+            { type: 2, point: 90, gifts: { coupon_id: 1, source_type: 1 } },
         ],
         sinInDays: 0,
         hasSinIn: false,
-        totalPoint: 0
+        totalPoint: 0,
     };
 
     componentDidMount() {
@@ -28,7 +28,21 @@ export default class App extends React.Component<any, any> {
     // token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0NCwidG9rZW5fdmVyc2lvbiI6IjVlOTQ2OGQxM2NjMzkifQ.ABI4fKPrYPb6jWKI7hlJalCVl1PLng8H6PRgd6_hhwI';
 
     get token() {
-        return window.location.href.split('?')[1].split('=')[1];
+        const tail = window.location.href.split('?');
+        let resTail = '';
+        let result = '';
+        if (tail.length > 1) {
+            // token=aaa&bbb=ccc"
+            resTail = tail[1];
+            if (resTail.includes('&')) {
+                const resultArr = resTail.split('&');
+                const r = resultArr.find((i) => i.startsWith('token='));
+                return r?.split('=')[1];
+            } else {
+                return resTail.split('=')[1];
+            }
+        }
+        return '';
     }
 
     fetchPage = () => {
@@ -36,11 +50,11 @@ export default class App extends React.Component<any, any> {
             // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/activitys', {
             .get('https://beta-api.foroo.co.uk/api/v1/activitys', {
                 headers: {
-                    token: this.token
+                    token: this.token,
                 },
                 params: {
-                    type: 1
-                }
+                    type: 1,
+                },
             })
             .then((res) => {
                 this.setState({ listData: res.data.data.data, sinInDays: res.data.data.sin_in_days });
@@ -48,8 +62,8 @@ export default class App extends React.Component<any, any> {
         axios
             .get('https://beta-api.foroo.co.uk/api/v1/points', {
                 headers: {
-                    token: this.token
-                }
+                    token: this.token,
+                },
             })
             .then((res) => {
                 this.setState({ totalPoint: res.data.data.point });
@@ -66,11 +80,11 @@ export default class App extends React.Component<any, any> {
             // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/points', {
             .get('https://beta-api.foroo.co.uk/api/v1/points', {
                 headers: {
-                    token: this.token
+                    token: this.token,
                 },
                 params: {
-                    type: 2
-                }
+                    type: 2,
+                },
             })
             .then((res) => {
                 const { sinInDays } = this.state;
