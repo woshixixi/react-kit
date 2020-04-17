@@ -77,12 +77,20 @@ export default class App extends React.Component<any, any> {
         }
         axios
             // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/points', {
-            .post('https://beta-api.foroo.co.uk/api/v1/points', {
-                headers: {
-                    token: this.token,
+            .post(
+                'https://beta-api.foroo.co.uk/api/v1/points',
+                {
+                    // headers: {
+                    //     token: this.token,
+                    // }
+                    type: 2,
                 },
-                type: 2,
-            })
+                {
+                    headers: {
+                        token: this.token,
+                    },
+                }
+            )
             .then((res) => {
                 const { sinInDays } = this.state;
                 this.setState({ sinInDays: sinInDays + 1, hasSinIn: true, totalPoint: res.data.data.point });

@@ -4,19 +4,20 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
-    entry: ['webpack-hot-middleware/client?reload=true', './src/index.tsx'],
+    // entry: ['webpack-hot-middleware/client?reload=true', './src/index.tsx'],
+    entry: './src/index.tsx',
     output: {
         filename: '[name].[hash].bundle.js',
         path: path.resolve(__dirname, '../dist'),
-        publicPath: '/'
+        publicPath: '/',
     },
     optimization: {
         splitChunks: {
-            chunks: 'all'
-        }
+            chunks: 'all',
+        },
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js'],
     },
     module: {
         rules: [
@@ -25,33 +26,33 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     {
-                        loader: 'babel-loader'
+                        loader: 'babel-loader',
                     },
                     {
-                        loader: 'ts-loader'
-                    }
-                ]
+                        loader: 'ts-loader',
+                    },
+                ],
             },
             {
                 test: /\.css$/,
-                use: [{ loader: 'style-loader' }, { loader: 'css-loader' }]
+                use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
             },
             {
                 test: /\.(png|jpg|gif|jpeg|svg)$/,
                 use: [
                     {
                         loader: 'file-loader',
-                        options: {}
-                    }
-                ]
-            }
-        ]
+                        options: {},
+                    },
+                ],
+            },
+        ],
     },
     plugins: [
         new htmlWebpackPlugin({
             template: path.resolve(__dirname, '../index.html'),
-            inject: 'body'
+            inject: 'body',
         }),
-        new webpack.HotModuleReplacementPlugin()
-    ].concat(process.env.ANALYZE_MODE ? [new BundleAnalyzerPlugin()] : [])
+        // new webpack.HotModuleReplacementPlugin(),
+    ].concat(process.env.ANALYZE_MODE ? [new BundleAnalyzerPlugin()] : []),
 };
