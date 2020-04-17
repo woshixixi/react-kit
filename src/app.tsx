@@ -37,7 +37,7 @@ export default class App extends React.Component<any, any> {
             if (resTail.includes('&')) {
                 const resultArr = resTail.split('&');
                 const r = resultArr.find((i) => i.startsWith('token='));
-                return r?.split('=')[1];
+                return r ? r.split('=')[1] : '';
             } else {
                 return resTail.split('=')[1];
             }
