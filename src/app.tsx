@@ -4,6 +4,18 @@ import axios from 'axios';
 import Resource from '../resource';
 import './app.css';
 
+declare global {
+    interface Window {
+        callBridge: (s: any) => {};
+    }
+}
+
+// function callBridge(text) {
+//     // ts-ignore
+//     ForooAppCaller.postMessage(text);
+// }
+// // ts-ignore
+// window.callBridge = callBridge;
 export default class App extends React.Component<any, any> {
     state = {
         listData: [
@@ -56,8 +68,14 @@ export default class App extends React.Component<any, any> {
                 }
             })
             .then((res) => {
-                console.log('get activityes:', res);
-                this.setState({ listData: res.data.data.data, sinInDays: res.data.data.sin_in_days, hasSinIn: res.data.data.sign_in });
+                if (res.data.status === 5000) {
+                    window.callBridge({
+                        action: 'login',
+                        target_url: window.location.href // 登陆后去往的地址
+                    });
+                } else {
+                    this.setState({ listData: res.data.data.data, sinInDays: res.data.data.sin_in_days, hasSinIn: res.data.data.sign_in });
+                }
             });
         axios
             .get('https://beta-api.foroo.co.uk/api/v1/points', {
@@ -66,7 +84,14 @@ export default class App extends React.Component<any, any> {
                 }
             })
             .then((res) => {
-                this.setState({ totalPoint: res.data.data.point });
+                if (res.data.status === 5000) {
+                    window.callBridge({
+                        action: 'login',
+                        target_url: window.location.href // 登陆后去往的地址
+                    });
+                } else {
+                    this.setState({ totalPoint: res.data.point });
+                }
             });
 
         //
@@ -90,12 +115,17 @@ export default class App extends React.Component<any, any> {
                 }
             )
             .then((res) => {
-                const { sinInDays } = this.state;
-                this.setState({ sinInDays: sinInDays + 1, hasSinIn: true, totalPoint: res.data.data.point });
+                if (res.data.status === 5000) {
+                    window.callBridge({
+                        action: 'login',
+                        target_url: window.location.href // 登陆后去往的地址
+                    });
+                } else {
+                    const { sinInDays } = this.state;
+                    this.setState({ sinInDays: sinInDays + 1, hasSinIn: true, totalPoint: res.data.data.point });
+                }
             });
     };
-
-    fetchCheckIn = () => {};
 
     render() {
         const { listData, sinInDays, totalPoint, hasSinIn } = this.state;
@@ -158,12 +188,17 @@ export default class App extends React.Component<any, any> {
                     </div>
                 )}
 
-                <img className='wheel' src={Resource.get('wheel')} />
+                <img className='wheel' onClick={this.jumpToWheel} src={Resource.get('wheel')} />
                 <img className='totalPoint' src={Resource.get('totalPoint')}></img>
                 <p className='totalPointNumber'>{totalPoint}</p>
             </div>
         );
     }
+
+    jumpToWheel = () => {
+        window.location.href = 'rotation_game.html' + window.location.search;
+        // https://beta-game.foroo.co.uk/sign_game.html'
+    };
 
     // gift last day
     renderGiftCard = () => {
