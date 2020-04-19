@@ -7,9 +7,9 @@
 }
 
 .title {
-    width: 304px;
+    width: 86vw;
     height: 12px;
-    margin-left: calc((100% - 304px) / 2);
+    margin-left: 3.4vw;
 }
 
 .close {
@@ -25,15 +25,15 @@
 }
 
 .app {
-    background-image: url(../resource/background@3x.png);
+    background-image: url(../resource/background.png);
     width: 100vw;
     height: 100vh;
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
 }
 
 .card-body {
-    background-image: url(../resource/rectangle@3x.png);
+    background-image: url(../resource/rectangle.png);
     width: 69px;
     height: 80px;
     background-size: contain;
@@ -60,7 +60,7 @@
 
 .card-top {
     width: 57px;
-    background-image: url(../resource/orangerectangle@3x.png);
+    background-image: url(../resource/orangerectangle.png);
     height: 29px;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
@@ -74,7 +74,7 @@
 }
 
 .check-circle {
-    background-image: url(../resource/checkinframe@3x.png);
+    background-image: url(../resource/checkinframe.png);
     width: 120px;
     height: 120px;
     background-size: cover;
@@ -92,7 +92,7 @@
 }
 
 .day-check {
-    background-image: url(../resource/circle@3x.png);
+    background-image: url(../resource/circle.png);
     width: 34px;
     height: 34px;
     background-size: cover;
@@ -171,4 +171,29 @@
     position: absolute;
     bottom: 40px;
     left: calc(50% - 60px);
+}
+
+.loading {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    margin-left: calc(50vw - 35px);
+    margin-top: 39vw;
+    z-index: 100;
+    -webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+    -webkit-animation: rotate 2s linear infinite;
+    -moz-animation: rotate 2s linear infinite;
+    -o-animation: rotate 2s linear infinite;
+    animation: rotate 2s linear infinite;
+}
+
+.mengban {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    z-index: 10;
 }

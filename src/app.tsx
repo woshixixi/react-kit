@@ -19,18 +19,54 @@ declare global {
 export default class App extends React.Component<any, any> {
     state = {
         listData: [
-            { type: 1, point: 20 },
-            { type: 1, point: 30 },
-            { type: 1, point: 40 },
-            { type: 1, point: 50 },
-            { type: 1, point: 60 },
-            { type: 1, point: 70 },
-            { type: 1, point: 80 },
-            { type: 2, point: 90, gifts: { coupon_id: 1, source_type: 1 } }
+            // { type: 1, point: 20 },
+            // { type: 1, point: 30 },
+            // { type: 1, point: 40 },
+            // { type: 1, point: 50 },
+            // { type: 1, point: 60 },
+            // { type: 1, point: 70 },
+            // { type: 1, point: 80 },
+            // { type: 2, point: 90, gifts: { coupon_id: 1, source_type: 1 } },
+            {
+                type: 1,
+                point: 20
+            },
+            {
+                type: 1,
+                point: 40
+            },
+            {
+                type: 1,
+                point: 50
+            },
+            {
+                point: 60,
+                type: 1,
+                extra: {
+                    point: 30
+                }
+            },
+            {
+                type: 1,
+                point: 70
+            },
+            {
+                type: 1,
+                point: 80
+            },
+            {
+                point: 100,
+                type: 2,
+                extra: {
+                    type: '4',
+                    discount: '0% OFF'
+                }
+            }
         ],
         sinInDays: 0,
         hasSinIn: false,
-        totalPoint: 0
+        totalPoint: 0,
+        loading: false
     };
 
     componentDidMount() {
@@ -101,6 +137,7 @@ export default class App extends React.Component<any, any> {
         if (this.state.hasSinIn) {
             return;
         }
+        this.setState({ loading: true });
         axios
             // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/points', {
             .post(
@@ -122,18 +159,24 @@ export default class App extends React.Component<any, any> {
                     });
                 } else {
                     const { sinInDays } = this.state;
-                    this.setState({ sinInDays: sinInDays + 1, hasSinIn: true, totalPoint: res.data.data.point });
+                    this.setState({ sinInDays: sinInDays + 1, loading: false, hasSinIn: true, totalPoint: res.data.data.point });
                 }
             });
     };
 
     render() {
-        const { listData, sinInDays, totalPoint, hasSinIn } = this.state;
+        const { listData, sinInDays, totalPoint, hasSinIn, loading } = this.state;
         const firstTreeDays = listData.slice(0, 3);
         const secondTreeDays = listData.slice(3, 6);
         const lastDay = listData[6];
         return (
             <div className='app'>
+                {loading ? (
+                    <>
+                        <img className='mengban' src={Resource.get('mengban')} />
+                        <img className='loading' src={Resource.get('loading')} />
+                    </>
+                ) : null}
                 <div className='header'>
                     <img className='title' src={Resource.get('title')} />
                     <img className='close' src={Resource.get('close')} />
