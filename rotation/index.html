@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>转盘</title>
+        <style type="text/css">
+            @font-face {
+                font-family: "AgencyFB-Bold";
+                src: url("AgencyFB-Bold.ttf");
+            }
+            @-webkit-keyframes rotate{
+                from{-webkit-transform: rotate(0deg)}
+                to{-webkit-transform: rotate(360deg)}
+            }
+            @-moz-keyframes rotate{
+                from{-moz-transform: rotate(0deg)}
+                to{-moz-transform: rotate(359deg)}
+            }
+            @-o-keyframes rotate{
+                from{-o-transform: rotate(0deg)}
+                to{-o-transform: rotate(359deg)}
+            }
+            @keyframes rotate{
+                from{transform: rotate(0deg)}
+                to{transform: rotate(359deg)}
+            }
+            body {
+                margin: 0;
+                padding:0;
+                background-color: rgb(168,225,238);
+                overflow-x: hidden;
+            }
+            .app {
+                background-image: url(./resource/background.png);
+                width: 100vw;
+                height: 100vh;
+                background-size: contain;
+                background-repeat: no-repeat;
+            }
+            .title{
+                width: 100vw;
+                display: flex;
+                position: relative;
+                justify-content: center;
+            }
+            .titleText{
+                width: 175px;
+                height: 25px;
+                margin-top: 42px;
+            }
+            .info{
+                display: flex;
+                position: relative;
+                justify-content: space-between;
+                margin-top: 10.3vw;
+                align-items: center;
+            }
+            .infoBtn{
+                width: 40px;
+                height: 40px;
+            }
+            .shareBtn{
+                width: 83px;
+                height: 42px;
+            }
+            .wheelWithLight{
+                margin: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+            .wheelWithLightImg{
+                /* width: calc(100vw - 20px);
+                height: calc(100vw - 20px); */
+                width: 355px;
+                height: 355px;
+                position: absolute;
+                /* top: calc((100vh - (100vw - 20px))/2); */
+                top:40vw;
+                margin-left: calc((100vw - 355px) / 2) ;
+            }
+            .pinImage{
+                position: absolute;
+                /* width: 27.7vw; */
+                width: 104px;
+                left: -10px;
+                top: -40px;
+                /* top: 64vw; */
+                /* margin-left: 36.2vw; */
+            }
+            .bottomText{
+                width: 100%;
+                height: 68px;
+                position: absolute;
+                bottom: 5px;
+            }
+            .reword{
+                position: fixed;
+                right: 0;
+                height: 25px;
+                width: 134px;
+                bottom: 88px;
+            }
+            .count{
+                color:white;
+                position: fixed;
+                right: 100px;
+                bottom: 90px;
+            }
+            .coin{
+                color:white;
+                position: fixed;
+                right: 29px;
+                bottom: 90px;
+            }
+            .mengban{
+                width: 100vw;
+                height: 100vh;
+                position: absolute;
+                top: 0;
+                z-index: 10;
+            }
+            .light{
+                position: absolute;
+                width: 100vw;
+                top: 95px;
+                z-index: 10;
+            }
+            .box{
+                position: absolute;
+                width: calc(100vw - 100px);
+                margin-left: 30px;
+                z-index: 10;
+            }
+            .offPrize{
+                position: absolute;
+                width: calc(100vw - 100px);
+                margin-left: 30px;
+                z-index: 10;
+            }
+            .offPrizeCount{
+                font-size: 24px;
+                position: absolute;
+                width: calc(100vw - 100px);
+                margin-left: 180px;
+                z-index: 10;
+                top: 63vw;
+            }
+            .closePrize{
+                font-size: 24px;
+                position: absolute;
+                margin-left: calc(50% - 25px);
+                z-index: 10;
+                top: 119.5vw;
+                width: 50px;
+
+            }
+            .pointPrize{
+                position: absolute;
+                width: calc(100vw - 150px);
+                margin-left: 75px;
+                z-index: 10;
+                top:47vw;
+            }
+            .pointPrizeCount{
+                height: 100px;
+                font-size: 24px;
+                position: absolute;
+                z-index: 10;
+                width: 100vw;
+                line-height: 0px;
+                display: flex;
+                top: 76.5vw;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .back{
+                width: 23px;
+                height: 40px;
+                position: absolute;
+                left: 23px;
+                top: 34px;
+            }
+            .loading{
+                width: 70px;
+                height: 70px;
+                position: absolute;
+                margin-left:calc(50vw - 35px);
+                margin-top: 39vw;
+                z-index: 100;
+                -webkit-transition-property: -webkit-transform;
+                -webkit-transition-duration: 1s;
+                -moz-transition-property: -moz-transform;
+                -moz-transition-duration: 1s;
+                -webkit-animation: rotate 2s linear infinite;
+                -moz-animation: rotate 2s linear infinite;
+                -o-animation: rotate 2s linear infinite;
+                animation: rotate 2s linear infinite;
+            }
+        </style>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, minimal-ui, viewport-fit=cover" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta content="telephone=no" name="format-detection" />
+        <script type="text/javascript" src="turntable.js"></script>
+        <link rel="stylesheet" href="turntable.css">
+
+        <script type="text/javascript" src="/jquery-3.5.0.min.js"></script>
+        <script type="text/javascript" src="/rotate.js"></script>
+    </head>
+    <body>
+
+        <div class="app">
+            <div class="title">
+                <img class="titleText" src="resource/Fortunewheel.png">
+            </div>
+            <img id="backBtn" class="back" src="resource/back.png"/>
+            <div class="info">
+                <img class="infoBtn" src="resource/infobutton.png">
+                <img id="shareBtn" class="shareBtn" src="resource/sharebutton.png"/>
+            </div>
+                <img  class="wheelWithLightImg" src="resource/wheelframe.png"/>
+
+            <section id="turntable" class="gb-turntable">
+                <div class="gb-turntable-container">
+                    <canvas class="gb-turntable-canvas" width="300" height="300px">抱歉！浏览器不支持。</canvas>
+                </div>
+
+                <a class="gb-turntable-btn" href="javascript:;">
+                    <img id="pin" class="pinImage" src="resource/pin.png" />
+                </a>
+            </section>
+
+            <span id="count" class="count">5/5</span>
+            <span id="coin" class="coin">20</span>
+            <img class="reword" src="resource/reword.png"/>
+            <img class="bottomText" src="resource/bottomText.png" />
+            <img id="mengban" class="mengban" src="resource/mengban.png"/>
+            <img id="light" class="light" src="resource/radientlight.png" />
+            <img id="box" class="box" src="resource/toy.png"/>
+
+            <!-- 优惠券 -->
+            <img id="offPrize" class="offPrize" src="resource/off-prize.png"/>
+            <span id="offPrizeCount" class="offPrizeCount">20% OFF</span>
+
+            <img id="closePrize" class="closePrize" src="resource/Xshare.png"/>
+
+            <!-- 积分 -->
+            <img id="pointPrize" class="pointPrize" src="resource/point-prize.png">
+            <div id="pointPrizeContainer" class="pointPrizeCount">
+                <p id="pointPrizeCount">+60</p>
+                <p id="pointPrizeText"> Points</p>
+            </div>
+
+            <img id="loading" class="loading" src="resource/loading.png"/>
+            
+            <script type="text/javascript" src="/index.js"></script>
+            <script>
+                (function () {
+                  var random = Math.random();
+                  //处理请求JS文件缓存
+                  var element = document.getElementsByTagName("script");
+                  for (var i = 0; i < element.length; i++) {
+                    if (element[i].src) {
+                      if (element[i].src.indexOf('?') > -1) {
+                        element[i].src = element[i].src + '&timestreap=' + random;
+                      } else {
+                        element[i].src = element[i].src + '?timestreap=' + random;
+                      }
+                    }
+                  };
+                  //处理CSS文件缓存
+                  var link = document.getElementsByTagName("link");
+                  for (var i = 0; i < link.length; i++) {
+                    if (link[i].href) {
+                      link[i].href = link[i].href + '?timestreap=' + random;
+                    }
+                  }
+                })()
+              </script>
+
+    </body>
+</html>
