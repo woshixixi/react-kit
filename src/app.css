@@ -175,19 +175,11 @@
 
 .loading {
     width: 70px;
-    height: 70px;
     position: absolute;
     margin-left: calc(50vw - 35px);
-    margin-top: 39vw;
+    margin-top: 79vw;
     z-index: 100;
-    -webkit-transition-property: -webkit-transform;
-    -webkit-transition-duration: 1s;
-    -moz-transition-property: -moz-transform;
-    -moz-transition-duration: 1s;
-    -webkit-animation: rotate 2s linear infinite;
-    -moz-animation: rotate 2s linear infinite;
-    -o-animation: rotate 2s linear infinite;
-    animation: rotate 2s linear infinite;
+    color: rgb(255, 111, 24);
 }
 
 .mengban {
@@ -196,4 +188,28 @@
     position: absolute;
     top: 0;
     z-index: 10;
+    opacity: 0.5;
+    background: black;
+}
+
+.toastBg {
+    width: 100vw;
+    position: absolute;
+    top: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.toastText {
+    width: 180px;
+    height: 80px;
+    background: black;
+    border-radius: 8px;
+    opacity: 0.8;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
 }

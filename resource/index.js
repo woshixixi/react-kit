@@ -9,7 +9,5 @@ export default new Map([
     ['checkInGray', require('./checkin-gray.png')],
     ['wheel', require('./wheeliconpressed.png')],
     ['totalPoint', require('./pointsframe@3x.png')],
-    ['loading', require('./loading.png')],
-    ['mengban', require('./mengban.png')],
-    ['gift', require('./gifticon.png')]
+    ['gift', require('./gifticon.png')],
 ]);

@@ -10,63 +10,50 @@ declare global {
     }
 }
 
-// function callBridge(text) {
-//     // ts-ignore
-//     ForooAppCaller.postMessage(text);
-// }
-// // ts-ignore
-// window.callBridge = callBridge;
 export default class App extends React.Component<any, any> {
     state = {
         listData: [
-            // { type: 1, point: 20 },
-            // { type: 1, point: 30 },
-            // { type: 1, point: 40 },
-            // { type: 1, point: 50 },
-            // { type: 1, point: 60 },
-            // { type: 1, point: 70 },
-            // { type: 1, point: 80 },
-            // { type: 2, point: 90, gifts: { coupon_id: 1, source_type: 1 } },
             {
                 type: 1,
-                point: 20
+                point: 20,
             },
             {
                 type: 1,
-                point: 40
+                point: 40,
             },
             {
                 type: 1,
-                point: 50
+                point: 50,
             },
             {
                 point: 60,
                 type: 1,
                 extra: {
-                    point: 30
-                }
+                    point: 30,
+                },
             },
             {
                 type: 1,
-                point: 70
+                point: 70,
             },
             {
                 type: 1,
-                point: 80
+                point: 80,
             },
             {
                 point: 100,
                 type: 2,
                 extra: {
                     type: '4',
-                    discount: '0% OFF'
-                }
-            }
+                    discount: '0% OFF',
+                },
+            },
         ],
         sinInDays: 0,
         hasSinIn: false,
         totalPoint: 0,
-        loading: false
+        loading: false,
+        toastText: '',
     };
 
     componentDidMount() {
@@ -95,42 +82,31 @@ export default class App extends React.Component<any, any> {
     fetchPage = () => {
         axios
             // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/activitys', {
-            .get('https://beta-api.foroo.co.uk/api/v1/activitys', {
+            .get('https://beta-api.foroo.co.uk/api/v1/activities', {
                 headers: {
-                    token: this.token
+                    token: this.token,
                 },
                 params: {
-                    type: 1
-                }
+                    type: 1,
+                },
             })
             .then((res) => {
                 if (res.data.status === 5000) {
                     window.callBridge({
                         action: 'login',
-                        target_url: window.location.href // 登陆后去往的地址
+                        target_url: window.location.href, // 登陆后去往的地址
+                    });
+                } else if (res.data.status === 1) {
+                    this.setState({
+                        listData: res.data.data.data,
+                        sinInDays: res.data.data.sin_in_days,
+                        totalPoint: res.data.data.user_points,
+                        hasSinIn: res.data.data.sign_in,
                     });
                 } else {
-                    this.setState({ listData: res.data.data.data, sinInDays: res.data.data.sin_in_days, hasSinIn: res.data.data.sign_in });
+                    this.showToast(res.data.msg);
                 }
             });
-        axios
-            .get('https://beta-api.foroo.co.uk/api/v1/points', {
-                headers: {
-                    token: this.token
-                }
-            })
-            .then((res) => {
-                if (res.data.status === 5000) {
-                    window.callBridge({
-                        action: 'login',
-                        target_url: window.location.href // 登陆后去往的地址
-                    });
-                } else {
-                    this.setState({ totalPoint: res.data.point });
-                }
-            });
-
-        //
     };
 
     onCheckIn = () => {
@@ -143,29 +119,41 @@ export default class App extends React.Component<any, any> {
             .post(
                 'https://beta-api.foroo.co.uk/api/v1/points',
                 {
-                    type: 2
+                    type: 2,
                 },
                 {
                     headers: {
-                        token: this.token
-                    }
+                        token: this.token,
+                    },
                 }
             )
             .then((res) => {
                 if (res.data.status === 5000) {
                     window.callBridge({
                         action: 'login',
-                        target_url: window.location.href // 登陆后去往的地址
+                        target_url: window.location.href, // 登陆后去往的地址
                     });
-                } else {
+                } else if (res.data.status === 1) {
                     const { sinInDays } = this.state;
-                    this.setState({ sinInDays: sinInDays + 1, loading: false, hasSinIn: true, totalPoint: res.data.data.point });
+                    this.setState({ sinInDays: sinInDays + 1, loading: false, hasSinIn: true, totalPoint: res.data.data.user_points });
+                } else {
+                    this.showToast(res.data.msg);
                 }
             });
     };
 
+    showToast = (text) => {
+        this.setState({ toastText: text }, this.stopToast);
+    };
+
+    stopToast = () => {
+        setTimeout(() => {
+            this.setState({ toastText: '' });
+        }, 1000);
+    };
+
     render() {
-        const { listData, sinInDays, totalPoint, hasSinIn, loading } = this.state;
+        const { listData, sinInDays, totalPoint, hasSinIn, loading, toastText } = this.state;
         const firstTreeDays = listData.slice(0, 3);
         const secondTreeDays = listData.slice(3, 6);
         const lastDay = listData[6];
@@ -173,9 +161,20 @@ export default class App extends React.Component<any, any> {
             <div className='app'>
                 {loading ? (
                     <>
-                        <img className='mengban' src={Resource.get('mengban')} />
-                        <img className='loading' src={Resource.get('loading')} />
+                        <div className='mengban'></div>
+                        {/* <span className='loading'>Loading...</span> */}
+                        <div className='lds-ring'>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
                     </>
+                ) : null}
+                {toastText ? (
+                    <div className='toastBg'>
+                        <span className='toastText'>{toastText}</span>
+                    </div>
                 ) : null}
                 <div className='header'>
                     <img className='title' src={Resource.get('title')} />
@@ -239,8 +238,12 @@ export default class App extends React.Component<any, any> {
     }
 
     jumpToWheel = () => {
-        window.location.href = 'rotation_game.html' + window.location.search;
+        // window.location.href = 'rotation_game.html' + window.location.search;
         // https://beta-game.foroo.co.uk/sign_game.html'
+        window.callBridge({
+            action: 'jump_rotary_table',
+            target_url: window.location.origin + '/rotation_game.html' + window.location.search,
+        });
     };
 
     // gift last day
