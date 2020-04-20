@@ -96,6 +96,7 @@ export default class App extends React.Component<any, any> {
                         action: 'login',
                         target_url: window.location.href, // 登陆后去往的地址
                     });
+                    this.setState({ loading: false });
                 } else if (res.data.status === 1) {
                     this.setState({
                         listData: res.data.data.data,
@@ -133,6 +134,7 @@ export default class App extends React.Component<any, any> {
                         action: 'login',
                         target_url: window.location.href, // 登陆后去往的地址
                     });
+                    this.setState({ loading: false });
                 } else if (res.data.status === 1) {
                     const { sinInDays } = this.state;
                     this.setState({ sinInDays: sinInDays + 1, loading: false, hasSinIn: true, totalPoint: res.data.data.user_points });
@@ -143,7 +145,7 @@ export default class App extends React.Component<any, any> {
     };
 
     showToast = (text) => {
-        this.setState({ toastText: text }, this.stopToast);
+        this.setState({ toastText: text, loading: false }, this.stopToast);
     };
 
     stopToast = () => {

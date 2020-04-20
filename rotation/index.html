@@ -8,34 +8,31 @@
                 font-family: "AgencyFB-Bold";
                 src: url("AgencyFB-Bold.ttf");
             }
-            @-webkit-keyframes rotate{
-                from{-webkit-transform: rotate(0deg)}
-                to{-webkit-transform: rotate(360deg)}
+            * {
+                -webkit-user-select:none;
+                -moz-user-select:none;
+                -ms-user-select:none;
+                user-select:none;	
             }
-            @-moz-keyframes rotate{
-                from{-moz-transform: rotate(0deg)}
-                to{-moz-transform: rotate(359deg)}
-            }
-            @-o-keyframes rotate{
-                from{-o-transform: rotate(0deg)}
-                to{-o-transform: rotate(359deg)}
-            }
-            @keyframes rotate{
-                from{transform: rotate(0deg)}
-                to{transform: rotate(359deg)}
+            * {
+                -webkit-touch-callout:none;
+                -moz-touch-callout:none;
+                -ms-touch-callout:none;
+                touch-callout:none;
             }
             body {
                 margin: 0;
                 padding:0;
                 background-color: rgb(168,225,238);
-                overflow-x: hidden;
+                overflow: hidden;
             }
             .app {
                 background-image: url(./resource/background.png);
                 width: 100vw;
                 height: 100vh;
-                background-size: contain;
+                background-size: 100%;
                 background-repeat: no-repeat;
+                overflow: hidden;
             }
             .title{
                 width: 100vw;
@@ -120,6 +117,8 @@
                 position: absolute;
                 top: 0;
                 z-index: 10;
+                opacity: 0.5;
+                background: black;
             }
             .light{
                 position: absolute;
@@ -190,14 +189,65 @@
                 margin-left:calc(50vw - 35px);
                 margin-top: 39vw;
                 z-index: 100;
-                -webkit-transition-property: -webkit-transform;
-                -webkit-transition-duration: 1s;
-                -moz-transition-property: -moz-transform;
-                -moz-transition-duration: 1s;
-                -webkit-animation: rotate 2s linear infinite;
-                -moz-animation: rotate 2s linear infinite;
-                -o-animation: rotate 2s linear infinite;
-                animation: rotate 2s linear infinite;
+            }
+            .lds-ring {
+                position: absolute;
+                width: 80px;
+                height: 80px;
+                left: calc(50vw - 35px);
+                top: 60vw;
+                z-index: 10;
+            }
+            .lds-ring div {
+                box-sizing: border-box;
+                display: block;
+                position: absolute;
+                width: 50px;
+                height: 50px;
+                margin: 8px;
+                border: 4px solid #fff;
+                border-radius: 50%;
+                animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                border-color: #fff transparent transparent transparent;
+            }
+            .lds-ring div:nth-child(1) {
+                animation-delay: -0.45s;
+            }
+            .lds-ring div:nth-child(2) {
+                animation-delay: -0.3s;
+            }
+            .lds-ring div:nth-child(3) {
+                animation-delay: -0.15s;
+            }
+            @keyframes lds-ring {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+            .toastBg {
+                width: 100vw;
+                position: absolute;
+                top: 50vw;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 20;
+            }
+
+            .toastText {
+                width: 180px;
+                height: 80px;
+                background: black;
+                border-radius: 8px;
+                opacity: 0.8;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
             }
         </style>
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, minimal-ui, viewport-fit=cover" />
@@ -215,7 +265,6 @@
             <div class="title">
                 <img class="titleText" src="resource/Fortunewheel.png">
             </div>
-            <img id="backBtn" class="back" src="resource/back.png"/>
             <div class="info">
                 <img class="infoBtn" src="resource/infobutton.png">
                 <img id="shareBtn" class="shareBtn" src="resource/sharebutton.png"/>
@@ -236,7 +285,18 @@
             <span id="coin" class="coin">20</span>
             <img class="reword" src="resource/reword.png"/>
             <img class="bottomText" src="resource/bottomText.png" />
-            <img id="mengban" class="mengban" src="resource/mengban.png"/>
+            
+            <!-- 蒙版 -->
+            <div id="mengban" class='mengban'></div>
+
+            <!-- loading -->
+            <div id="loading" class='lds-ring'>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
             <img id="light" class="light" src="resource/radientlight.png" />
             <img id="box" class="box" src="resource/toy.png"/>
 
@@ -253,8 +313,13 @@
                 <p id="pointPrizeText"> Points</p>
             </div>
 
-            <img id="loading" class="loading" src="resource/loading.png"/>
-            
+
+
+            <!-- toast -->
+            <div id="toastBg" class='toastBg'>
+                <span id="toastText" class='toastText'>'error has appeared'</span>
+            </div>
+
             <script type="text/javascript" src="/index.js"></script>
             <script>
                 (function () {
