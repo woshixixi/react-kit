@@ -179,7 +179,7 @@ $(document).ready(function () {
                             img: './resource/point.png',
                         };
                     } else if (r.type === 2) {
-                        if (r.extra.type === 4) {
+                        if (r.extra.type === '4') {
                             return {
                                 text: `${r.extra.discount}`,
                                 img: './resource/coupon.png',
@@ -220,7 +220,7 @@ $(document).ready(function () {
                                     $('#mengban').hide();
                                     // console.log('res', res);
 
-                                    num = res.data.prize;
+                                    num = res.data.prize - 1;
                                     // num 奖品id restTimes 可抽奖次数
                                     firstTime = res.data.free_first_times;
 

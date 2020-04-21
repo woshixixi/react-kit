@@ -100,8 +100,15 @@
      * @param  {Number} 奖品份数
      */
     function draw(opts) {
+        console.log('opts', opts);
         opts = opts || {};
         if (!opts.id || num >>> 0 === 0) return;
+
+        // init 的时候画的要去掉
+        const initList = $('gb-turntable-list-id');
+        if (initList) {
+            initList.remove();
+        }
 
         var id = opts.id,
             rotateDeg = 360 / num / 2 + 90, // 扇形回转角度
@@ -156,7 +163,7 @@
 
             // 奖项列表
             var prizeList = opts.prizes;
-            html.push('<li class="gb-turntable-item"> <span style="');
+            html.push('<li  class="gb-turntable-item"> <span style="');
             html.push(transform + ': rotate(' + i * turnNum + 'turn)">');
             // !!prizeList[i].img ? html.push('<img src="' + prizeList[i].img + '" />') : html.push(prizeList[i].text);
             html.push(prizeList[i].text);
@@ -164,6 +171,7 @@
             html.push('</span> </li>');
             if (i + 1 === num) {
                 prizeItems.className = 'gb-turntalbe-list';
+                prizeItems.id = 'gb-turntable-list-id';
                 container.appendChild(prizeItems);
                 prizeItems.innerHTML = html.join('');
             }
@@ -299,6 +307,9 @@
     var gbTurntable = {
         init: function (opts) {
             return init(opts);
+        },
+        reDraw: function (opts) {
+            return reDraw(opts);
         },
     };
 
