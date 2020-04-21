@@ -88,6 +88,11 @@ $(document).ready(function () {
                         showToast(res.msg);
                     }
                 },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $('#loading').hide();
+                    $('#mengban').hide();
+                    showToast(textStatus);
+                },
             });
         },
         gotBack: function (data) {
@@ -233,6 +238,11 @@ $(document).ready(function () {
                                     showToast(res.msg);
                                 }
                             },
+                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                $('#loading').hide();
+                                $('#mengban').hide();
+                                showToast(textStatus);
+                            },
                         });
                     },
                     gotBack: function (data) {
@@ -275,6 +285,11 @@ $(document).ready(function () {
             } else {
                 showToast(data.msg);
             }
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            $('#loading').hide();
+            $('#mengban').hide();
+            showToast(textStatus);
         },
     });
 
