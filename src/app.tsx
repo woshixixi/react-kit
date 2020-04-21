@@ -107,6 +107,9 @@ export default class App extends React.Component<any, any> {
                 } else {
                     this.showToast(res.data.msg);
                 }
+            })
+            .catch((err) => {
+                this.showToast(err);
             });
     };
 
@@ -141,6 +144,9 @@ export default class App extends React.Component<any, any> {
                 } else {
                     this.showToast(res.data.msg);
                 }
+            })
+            .catch((err) => {
+                this.showToast(err);
             });
     };
 
