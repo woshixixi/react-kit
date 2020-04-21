@@ -81,9 +81,7 @@
             draw(opts);
         });
 
-        if (opts.time === 'first') {
-            events();
-        }
+        events();
     }
 
     /**
@@ -102,6 +100,8 @@
     function draw(opts) {
         console.log('opts', opts);
         opts = opts || {};
+        num = opts.prizes.length;
+
         if (!opts.id || num >>> 0 === 0) return;
 
         // init 的时候画的要去掉
@@ -308,8 +308,8 @@
         init: function (opts) {
             return init(opts);
         },
-        reDraw: function (opts) {
-            return reDraw(opts);
+        draw: function (opts) {
+            return draw(opts);
         },
     };
 

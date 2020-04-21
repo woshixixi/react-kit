@@ -52,7 +52,6 @@ $(document).ready(function () {
 
     gbTurntable.init({
         id: 'turntable',
-        time: 'first',
         config: function (callback) {
             // 获取奖品信息
             // 奖项 text 属性不能为空，用于显示或抽中奖品提示
@@ -75,7 +74,7 @@ $(document).ready(function () {
                     } else if (res.status === 1) {
                         $('#loading').hide();
                         $('#mengban').hide();
-                        num = res.data.prize;
+                        num = res.data.prize - 1;
                         // num 奖品id restTimes 可抽奖次数
                         firstTime = res.data.free_first_times;
 
@@ -198,90 +197,7 @@ $(document).ready(function () {
                         }
                     }
                 });
-                gbTurntable.init({
-                    id: 'turntable',
-                    time: 'second',
-                    config: function (callback) {
-                        // 获取奖品信息
-                        // 奖项 text 属性不能为空，用于显示或抽中奖品提示
-                        // img 为奖品图片地址，如果不为空则转盘奖品按图片方式显示
-                        callback && callback(turnTableData);
-                    },
-                    getPrize: function (callback) {
-                        $('#loading').show();
-                        $('#mengban').show();
-                        // 获取中奖信息
-                        $.ajax({
-                            url: 'https://beta-api.foroo.co.uk/api/v1/activities/fortune_wheel',
-                            data: { free: firstTime },
-                            headers: { token: token },
-                            success: function (res) {
-                                if (res.status === 5000) {
-                                    ForooAppCaller.postMessage(JSON.stringify({ action: 'login', target_url: window.location.href }));
-                                    $('#loading').hide();
-                                    $('#mengban').hide();
-                                } else if (res.status === 1) {
-                                    $('#loading').hide();
-                                    $('#mengban').hide();
-                                    // console.log('res', res);
-
-                                    num = res.data.prize - 1;
-                                    // num 奖品id restTimes 可抽奖次数
-                                    firstTime = res.data.free_first_times;
-
-                                    restTimes = res.data.play_times;
-                                    $('#count').html(`${restTimes}/5`);
-                                    callback && callback([num, restTimes]);
-                                } else {
-                                    $('#loading').hide();
-                                    $('#mengban').hide();
-                                    showToast(res.msg);
-                                }
-                            },
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                $('#loading').hide();
-                                $('#mengban').hide();
-                                showToast(textStatus);
-                            },
-                        });
-                    },
-                    gotBack: function (data) {
-                        // alert('恭喜抽中' + data);
-                        const prizeData = responseData[num];
-                        if (prizeData.type === 1) {
-                            // 得到积分奖励
-                            totalPoint = totalPoint + prizeData.point;
-                            $('#coin').html(totalPoint);
-
-                            $('#pointPrizeCount').html(prizeData.point);
-                            $('#mengban').show();
-                            $('#pointPrize').show();
-                            $('#pointPrizeContainer').show();
-                            $('#pointPrizeCount').show();
-                            $('#pointPrizeText').show();
-
-                            $('#closePrize').show();
-                        } else if (prizeData.type === 2) {
-                            // 得到 优惠券 & 满减
-                            if (prizeData.extra.type === 1) {
-                                // 满减
-                            } else {
-                                //  优惠券
-                                $('#offPrizeCount').html(prizeData.extra.discount);
-                                $('#mengban').show();
-                                $('#offPrize').show();
-                                $('#offPrizeCount').show();
-
-                                $('#closePrize').show();
-                            }
-                        } else if (prizeData.type === 3) {
-                            // 获得大奖 恐龙出现
-                            $('#box').show();
-                            $('#mengban').show();
-                            $('#light').show();
-                        }
-                    },
-                });
+                gbTurntable.draw({ id: 'turntable', prizes: turnTableData });
             } else {
                 showToast(data.msg);
             }
