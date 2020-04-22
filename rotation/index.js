@@ -15,8 +15,6 @@ $(document).ready(function () {
     $('#pointPrizeText').hide();
     $('#pointPrizeContainer').hide();
 
-    $('#closePrize').hide();
-
     $('#toastBg').hide();
     $('#toastText').hide();
 
@@ -104,6 +102,7 @@ $(document).ready(function () {
 
                 $('#pointPrizeCount').html(prizeData.point);
                 $('#mengban').show();
+                $('#light').show();
                 $('#pointPrize').show();
                 $('#pointPrizeContainer').show();
                 $('#pointPrizeCount').show();
@@ -118,6 +117,7 @@ $(document).ready(function () {
                     //  优惠券
                     $('#offPrizeCount').html(prizeData.extra.discount);
                     $('#mengban').show();
+                    $('#light').show();
                     $('#offPrize').show();
                     $('#offPrizeCount').show();
 
@@ -209,27 +209,67 @@ $(document).ready(function () {
         },
     });
 
-    $('#box').click(function () {
-        $('#box').hide();
+    // 其他奖励 点击蒙版|奖品
+    // 优惠券
+    $('#offPrize').click(function () {
         $('#mengban').hide();
         $('#light').hide();
+        $('#offPrize').hide();
+        $('#offPrizeCount').hide();
+    });
+    $('#offPrizeCount').click(function () {
+        $('#mengban').hide();
+        $('#light').hide();
+        $('#offPrize').hide();
+        $('#offPrizeCount').hide();
+    });
+
+    // 积分
+    $('#pointPrize').click(function () {
+        $('#mengban').hide();
+        $('#light').hide();
+        $('#pointPrize').hide();
+        $('#pointPrizeContainer').hide();
+    });
+    $('#pointPrizeContainer').click(function () {
+        $('#mengban').hide();
+        $('#light').hide();
+        $('#pointPrize').hide();
+        $('#pointPrizeContainer').hide();
     });
 
     $('#shareBtn').click(function () {
         ForooAppCaller.postMessage(JSON.stringify({ action: 'share' }));
     });
 
+    // 点击叉叉
     $('#closePrize').click(function () {
         $('#mengban').hide();
+        $('#light').hide();
+        $('#box').hide();
+    });
 
+    // 点击蒙版 积分、优惠券都消失
+    $('#mengban').click(function () {
+        if ($('#box').css('display') !== 'none') {
+            return;
+        }
+        $('#mengban').hide();
+        $('#light').hide();
         $('#offPrize').hide();
         $('#offPrizeCount').hide();
-
         $('#pointPrize').hide();
-        $('#pointPrizeCount').hide();
-        $('#pointPrizeText').hide();
         $('#pointPrizeContainer').hide();
-
-        $('#closePrize').hide();
+    });
+    $('#light').click(function () {
+        if ($('#box').css('display') !== 'none') {
+            return;
+        }
+        $('#mengban').hide();
+        $('#light').hide();
+        $('#offPrize').hide();
+        $('#offPrizeCount').hide();
+        $('#pointPrize').hide();
+        $('#pointPrizeContainer').hide();
     });
 });

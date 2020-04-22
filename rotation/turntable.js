@@ -98,7 +98,6 @@
      * @param  {Number} 奖品份数
      */
     function draw(opts) {
-        console.log('opts', opts);
         opts = opts || {};
         num = opts.prizes.length;
 
@@ -235,7 +234,6 @@
             // 中奖提示
             bind(container, transitionEnd, eGot);
         });
-        // console.log('btn', btn);
     }
 
     function eGot() {
