@@ -54,10 +54,16 @@ export default class App extends React.Component<any, any> {
         totalPoint: 0,
         loading: false,
         toastText: '',
+        isResult: false,
+        isMin: true,
     };
 
     componentDidMount() {
         this.fetchPage();
+    }
+
+    get isMin() {
+        return window.screen.height < 667 || false;
     }
 
     // token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0NCwidG9rZW5fdmVyc2lvbiI6IjVlOTQ2OGQxM2NjMzkifQ.ABI4fKPrYPb6jWKI7hlJalCVl1PLng8H6PRgd6_hhwI';
@@ -79,10 +85,15 @@ export default class App extends React.Component<any, any> {
         return '';
     }
 
+    get isBetaUrl() {
+        return window.location.href.includes('beta-game') || false;
+    }
+
     fetchPage = () => {
+        const url = this.isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/activities' : 'https://foroo.co.uk/api/v1/activities';
         axios
             // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/activitys', {
-            .get('https://beta-api.foroo.co.uk/api/v1/activities', {
+            .get(url, {
                 headers: {
                     token: this.token,
                 },
@@ -99,8 +110,8 @@ export default class App extends React.Component<any, any> {
                     this.setState({ loading: false });
                 } else if (res.data.status === 1) {
                     this.setState({
-                        listData: res.data.data.data,
-                        sinInDays: res.data.data.sin_in_days,
+                        listData: this.getRealListData(res.data.data.data),
+                        sinInDays: Number(res.data.data.sin_in_days),
                         totalPoint: res.data.data.user_points,
                         hasSinIn: res.data.data.sign_in,
                     });
@@ -109,19 +120,34 @@ export default class App extends React.Component<any, any> {
                 }
             })
             .catch((err) => {
-                this.showToast(err);
+                this.showToast('network failed');
             });
     };
 
+    getRealListData = (dataList) => {
+        return dataList.map((i) => ({
+            type: i.type,
+            point: i.extra ? (i.extra.point ? i.point + i.extra.point : i.point) : i.point,
+        }));
+    };
+
+    get todayPoints() {
+        const { sinInDays, listData } = this.state;
+        return listData[sinInDays - 1].point || 0;
+    }
+
     onCheckIn = () => {
+        const pointUrl = this.isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/points' : 'https://foroo.co.uk/api/v1/points';
         if (this.state.hasSinIn) {
             return;
         }
         this.setState({ loading: true });
         axios
-            // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/points', {
+            // .get(
+            //     'https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/points',
+            //     {
             .post(
-                'https://beta-api.foroo.co.uk/api/v1/points',
+                pointUrl,
                 {
                     type: 2,
                 },
@@ -140,13 +166,13 @@ export default class App extends React.Component<any, any> {
                     this.setState({ loading: false });
                 } else if (res.data.status === 1) {
                     const { sinInDays } = this.state;
-                    this.setState({ sinInDays: sinInDays + 1, loading: false, hasSinIn: true, totalPoint: res.data.data.user_points });
+                    this.setState({ sinInDays: sinInDays + 1, loading: false, hasSinIn: true, totalPoint: res.data.data, isResult: true });
                 } else {
                     this.showToast(res.data.msg);
                 }
             })
             .catch((err) => {
-                this.showToast(err);
+                this.showToast('network failed');
             });
     };
 
@@ -160,17 +186,22 @@ export default class App extends React.Component<any, any> {
         }, 1000);
     };
 
+    onCloseResultBox = () => {
+        this.setState({ isResult: false });
+    };
+
     render() {
-        const { listData, sinInDays, totalPoint, hasSinIn, loading, toastText } = this.state;
+        const { listData, sinInDays, totalPoint, hasSinIn, loading, toastText, isResult } = this.state;
         const firstTreeDays = listData.slice(0, 3);
         const secondTreeDays = listData.slice(3, 6);
         const lastDay = listData[6];
+        console.log('render:', window.screen.height, this.isMin);
+        const isMin = this.isMin || false;
         return (
             <div className='app'>
                 {loading ? (
                     <>
                         <div className='mengban'></div>
-                        {/* <span className='loading'>Loading...</span> */}
                         <div className='lds-ring'>
                             <div></div>
                             <div></div>
@@ -184,63 +215,91 @@ export default class App extends React.Component<any, any> {
                         <span className='toastText'>{toastText}</span>
                     </div>
                 ) : null}
-                <div className='header'>
-                    <img className='title' src={Resource.get('title')} />
-                    <img className='close' src={Resource.get('close')} />
+                {/* 结果box */}
+                {isResult ? (
+                    <>
+                        <div className='mengban'></div>
+                        <div className='resultBox'>
+                            {sinInDays >= 7 ? (
+                                <>
+                                    <img className='pointWin' src={Resource.get('couponWin')} />
+                                    <p className='result-box-title'>Congrats!</p>
+                                    <p className='result-box-text-body'>You have earned {this.todayPoints} points and a additional 15% off coupon!</p>
+                                </>
+                            ) : (
+                                <>
+                                    <img className='pointWin' src={Resource.get('pointWin')} />
+                                    <p className='result-box-title'>Succeeded</p>
+                                    <p className='result-box-text-body'>You have earned {this.todayPoints} points</p>
+                                </>
+                            )}
+                            <div className='ok-check-in-active' onClick={this.onCloseResultBox}>
+                                Ok
+                            </div>
+                        </div>
+                    </>
+                ) : null}
+                <div className='points' onClick={this.jumpToRules}>
+                    <span className='left-point'>
+                        <img className='point' src={Resource.get('point')} />
+                        <span>{totalPoint}</span>
+                    </span>
+                    <img className='right-point' src={Resource.get('rightArrow')} />
                 </div>
-                <div className='cards'>
-                    {firstTreeDays.map((d, index) => (
-                        <div className='single-card' key={index}>
-                            <div className='card-body'>
-                                <div className='card-top'>Day{index}</div>
-                                {index < this.state.sinInDays ? this.renderCheckedCard() : this.renderEmptyCard()}
-                            </div>
-
-                            <div className='card-point'>
-                                <span>+{d.point}</span>
-                                <img className='point' src={Resource.get('point')} />
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                <div className='cards-bottom'>
-                    {secondTreeDays.map((d, index) => (
-                        <div className='single-card' key={index}>
-                            <div className='card-body'>
-                                <div className='card-top'>Day{index + 3}</div>
-                                {index < this.state.sinInDays - 3 ? this.renderCheckedCard() : this.renderEmptyCard()}
-                            </div>
-
-                            <div className='card-point'>
-                                <span>+{d.point}</span>
-                                <img className='point' src={Resource.get('point')} />
-                            </div>
-                        </div>
-                    ))}
-                    <div className='single-card'>
-                        <div className='card-body'>
-                            <div className='card-top'>Day{7}</div>
-                            {sinInDays >= 7 ? this.renderCouponCard() : this.renderGiftCard()}
-                        </div>
-
-                        <div className='card-point'>
-                            <span>+{lastDay.point}</span>
-                            <img className='point' src={Resource.get('point')} />
+                <div className='body-radius'>
+                    <div className={isMin ? 'body-title-min' : 'body-title'}>KEEP CHECKING IN EVERY DAY TO GET MORE POINTS!</div>
+                    <div className='cards'>
+                        {firstTreeDays.map((d, index) => (
+                            <>
+                                <div className={sinInDays >= index + 1 ? 'card-body-red' : 'card-body'} key={index}>
+                                    <div className='card-top'>Day&nbsp;{index + 1}</div>
+                                    {sinInDays >= index + 1 ? (
+                                        <img className='card-point' src={Resource.get('checked')} />
+                                    ) : (
+                                        <img className='card-point' src={Resource.get('point')} />
+                                    )}
+                                    <span className={sinInDays >= index + 1 ? 'card-point-text-white' : 'card-point-text'}>{d.point}</span>
+                                </div>
+                                {index !== 2 ? <div className='empty-line'></div> : null}
+                            </>
+                        ))}
+                    </div>
+                    <div className={isMin ? 'cards-bottom-min' : 'cards-bottom'}>
+                        {secondTreeDays.map((d, index) => (
+                            <>
+                                <div className={sinInDays >= index + 4 ? 'card-body-red' : 'card-body'} key={index + 3}>
+                                    <div className='card-top'>Day&nbsp;{index + 4}</div>
+                                    {sinInDays >= index + 4 ? (
+                                        <img className='card-point' src={Resource.get('checked')} />
+                                    ) : (
+                                        <img className='card-point' src={Resource.get('point')} />
+                                    )}
+                                    <span className={sinInDays >= index + 4 ? 'card-point-text-white' : 'card-point-text'}>{d.point}</span>
+                                </div>
+                                <div className='empty-line-bottom'></div>
+                            </>
+                        ))}
+                        <div className={sinInDays >= 7 ? 'card-body-red' : 'card-body'} key={7}>
+                            <div className='card-top'>Day&nbsp;{7}</div>
+                            {sinInDays >= 7 ? (
+                                <img className='card-point' src={Resource.get('coupon')} />
+                            ) : (
+                                <img className='card-point' src={Resource.get('gift')} />
+                            )}
+                            <span className={sinInDays >= 7 ? 'card-point-text-white' : 'card-point-text-last'}>{lastDay.point}</span>
                         </div>
                     </div>
+
+                    {hasSinIn ? (
+                        <div className={isMin ? 'check-in-gray-min' : 'check-in-gray'}>Well done</div>
+                    ) : (
+                        <div className={isMin ? 'check-in-active-min' : 'check-in-active'} onClick={this.onCheckIn}>
+                            Check In
+                        </div>
+                    )}
+
+                    {/* <img className='wheel' onClick={this.jumpToWheel} src={Resource.get('wheel')} /> */}
                 </div>
-
-                {hasSinIn ? (
-                    <img className='check-in-gray' src={Resource.get('checkInGray')} />
-                ) : (
-                    <div className='check-circle' onClick={this.onCheckIn}>
-                        <img className='check-in' src={Resource.get('checkIn')} />
-                    </div>
-                )}
-
-                <img className='wheel' onClick={this.jumpToWheel} src={Resource.get('wheel')} />
-                <img className='totalPoint' src={Resource.get('totalPoint')}></img>
-                <p className='totalPointNumber'>{totalPoint}</p>
             </div>
         );
     }
@@ -254,32 +313,8 @@ export default class App extends React.Component<any, any> {
         });
     };
 
-    // gift last day
-    renderGiftCard = () => {
-        return (
-            <div className='day-check'>
-                <img className='gift' src={Resource.get('gift')} />
-            </div>
-        );
-    };
-
-    renderCheckedCard = () => {
-        return (
-            <div className='day-check'>
-                <img className='tick' src={Resource.get('tick')} />
-            </div>
-        );
-    };
-
-    renderEmptyCard = () => {
-        return <div className='day-check'></div>;
-    };
-
-    renderCouponCard = () => {
-        return (
-            <div className='day-check'>
-                <img className='coupon' src={Resource.get('coupon')} />
-            </div>
-        );
+    jumpToRules = () => {
+        window.location.href =
+            'https://security.feishu.cn/link/safety?target=https%3A%2F%2Fforoo.co.uk%2Fpoints-rule%2F&lang=zh-CN&scene=messenger&logParams=%7B%22location%22%3A%22messenger%22%7D';
     };
 }

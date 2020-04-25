@@ -23,45 +23,76 @@
             body {
                 margin: 0;
                 padding:0;
-                background-color: rgb(168,225,238);
+                /* background-color: rgb(168,225,238); */
+                background: rgb(248,105,54);
                 overflow: hidden;
             }
             .app {
-                background-image: url(./resource/background.png);
                 width: 100vw;
-                height: 100vh;
-                background-repeat: no-repeat;
                 overflow: hidden;
-                background-size: 100% auto;
-                background-position: center top;
             }
             .title{
+                height: 8vw;
                 width: 100vw;
                 display: flex;
                 position: relative;
-                justify-content: center;
+                justify-content: space-between;
+                padding-top: 5.3vw;
             }
-            .titleText{
-                width: 175px;
-                height: 25px;
-                margin-top: 42px;
-            }
-            .info{
+            .points {
+                width: 32vw;
+                height: 8vw;
+                border-radius: 8vw;
                 display: flex;
+                background: rgba(0, 0, 0, 0.2);
+                align-items: center;
+                margin-left: 3.2vw;
+                color: white;
+                justify-content: space-between;
+            }
+            .left-point {
+                display: flex;
+                align-items: center;
+                font-family: 'PingFangSC-Medium';
+                font-size: 15px;
+            }
+
+            .point {
+                width: 5.3vw;
+                height: 5.3vw;
+                margin-left: 2.6vw;
+                margin-right: 2.6vw;
+            }
+            .rules{
+                width: 26.7vw;
+                height: 8vw;
+                border-top-left-radius: 8vw;
+                border-bottom-left-radius: 8vw;
+                display: flex;
+                background: rgba(0, 0, 0, 0.2);
+                align-items: center;
+                color: white;
+                justify-content: space-between;
+            }
+            .left-text{
+                color:white;
+                font-family: 'PingFangSC-Medium';
+                margin-left: 5.3vw;
+            }
+            .arrow{
+                margin-right: 2.6vw;
+                height: 4vw;
+            }
+            .body{
+                background-image: linear-gradient(#eadbae,#9fe2e9);
+                border-top-left-radius: 20px;
+                border-top-right-radius: 20px;
                 width: 100vw;
                 position: absolute;
-                justify-content: space-between;
-                top: 27.4vw;
-                align-items: center;
+                top: 18.7vw;
+                bottom: 0;
             }
-            .infoBtn{
-                width: 40px;
-                height: 40px;
-            }
-            .shareBtn{
-                width: 83px;
-                height: 42px;
-            }
+
             .wheelWithLight{
                 margin: auto;
                 display: flex;
@@ -92,7 +123,7 @@
                 width: 100%;
                 height: 68px;
                 position: absolute;
-                bottom: 5px;
+                bottom: 0;
             }
             .reword{
                 position: fixed;
@@ -286,29 +317,43 @@
     <body>
 
         <div class="app">
+            <!-- 标题 -->
             <div class="title">
-                <img class="titleText" src="resource/Fortunewheel.png">
-            </div>
-            <div class="info">
-                <img class="infoBtn" src="resource/infobutton.png">
-                <img id="shareBtn" class="shareBtn" src="resource/sharebutton.png"/>
-            </div>
-                <img  class="wheelWithLightImg" src="resource/wheelframe.png"/>
-
-            <section id="turntable" class="gb-turntable">
-                <div class="gb-turntable-container">
-                    <canvas class="gb-turntable-canvas" width="300" height="300px">抱歉！浏览器不支持。</canvas>
+                <div id="points" class='points'>
+                    <span class='left-point'>
+                        <img class='point'  src="resource/points_small.png" />
+                        <span id="coin">0</span>
+                    </span>
                 </div>
+                <div id="rules" class='rules'>
+                    <span class="left-text">Rules</span>
+                    <img class='arrow'  src="resource/icon_arrow.png" />
+                </div>
+            </div>
+            <!-- 蓝色转盘 -->
+            <div class="body">
+                <p>You have <span id="" span>X</span> more times</p>
 
-                <a class="gb-turntable-btn" href="javascript:;">
-                    <img id="pin" class="pinImage" src="resource/pin.png" />
-                </a>
-            </section>
+                <img  class="wheelWithLightImg" src="resource/wheelframe.png"/>
+                <section id="turntable" class="gb-turntable">
+                    <div class="gb-turntable-container">
+                        <canvas class="gb-turntable-canvas" width="300" height="300px">抱歉！浏览器不支持。</canvas>
+                    </div>
+
+                    <a class="gb-turntable-btn" href="javascript:;">
+                        <img id="pin" class="pinImage" src="resource/pin.png" />
+                    </a>
+                </section>
+
+
+            </div>
+
+            <img class="bottomText" src="resource/bottomText.png" />
+
 
             <span id="count" class="count">5/5</span>
-            <span id="coin" class="coin">20</span>
+            <!-- <span id="coin" class="coin">20</span> -->
             <img class="reword" src="resource/reword.png"/>
-            <img class="bottomText" src="resource/bottomText.png" />
             
             <!-- 蒙版 & light -->
             <div id="mengban" class='mengban'></div>
