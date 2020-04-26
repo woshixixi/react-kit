@@ -19,6 +19,8 @@
         fnGotBack,
         optsPrize;
 
+    var isMin;
+
     var cssPrefix,
         eventPrefix,
         vendors = {
@@ -75,6 +77,8 @@
         fnGetPrize = opts.getPrize;
         fnGotBack = opts.gotBack;
 
+        isMin = opts.isMin;
+
         opts.config(function (data) {
             prizes = opts.prizes = data;
             num = prizes.length;
@@ -119,7 +123,11 @@
         ele = $(id);
         canvas = ele.querySelector('.gb-turntable-canvas');
         container = ele.querySelector('.gb-turntable-container');
-        btn = ele.querySelector('.gb-turntable-btn');
+        if (isMin) {
+            btn = ele.querySelector('.gb-turntable-btn-min');
+        } else {
+            btn = ele.querySelector('.gb-turntable-btn');
+        }
 
         if (!canvas.getContext) {
             showMsg('抱歉！浏览器不支持。');
@@ -162,7 +170,12 @@
 
             // 奖项列表
             var prizeList = opts.prizes;
-            html.push('<li  class="gb-turntable-item"> <span style="');
+            if (isMin) {
+                html.push('<li  class="gb-turntable-item-min"> <span style="');
+            } else {
+                html.push('<li  class="gb-turntable-item"> <span style="');
+            }
+
             html.push(transform + ': rotate(' + i * turnNum + 'turn)">');
             // !!prizeList[i].img ? html.push('<img src="' + prizeList[i].img + '" />') : html.push(prizeList[i].text);
             html.push(prizeList[i].text);

@@ -1,4 +1,31 @@
 $(document).ready(function () {
+    var isMin = window.screen.height < 539 || false;
+
+    if (isMin) {
+        // 所有使用-min class
+        $('#wheelLayer').removeClass('wheel-layer');
+        $('#wheelLayer').addClass('wheel-layer-min');
+        $('#wheelWithLightImg').removeClass('wheelWithLightImg');
+        $('#wheelWithLightImg').addClass('wheelWithLightImg-min');
+        $('#turntable').removeClass('gb-turntable');
+        $('#turntable').addClass('gb-turntable-min');
+        $('#gbTurnTableBtn').removeClass('gb-turntable-btn');
+        $('#gbTurnTableBtn').addClass('gb-turntable-btn-min');
+        $('#pin').removeClass('pinImage');
+        $('#pin').addClass('pinImage-min');
+        // rule modal
+        $('#model').removeClass('rule-model');
+        $('#model').addClass('rule-model-min');
+        $('#modelBody').removeClass('model-body-min');
+        $('#modelBody').addClass('model-body-min');
+        $('#closeModel').removeClass('close-model');
+        $('#closeModel').addClass('close-model-min');
+
+        // 大奖
+        $('#box').removeClass('toy');
+        $('#box').addClass('toy-min');
+    }
+
     $('#mengban').hide();
     $('#light').hide();
     $('#box').hide();
@@ -17,6 +44,13 @@ $(document).ready(function () {
 
     $('#toastBg').hide();
     $('#toastText').hide();
+
+    // rules
+    $('#model').hide();
+    $('#closeModel').hide();
+
+    // confirm
+    $('#confirm').hide();
 
     function showToast(text) {
         $('#toastText').html(text);
@@ -47,9 +81,11 @@ $(document).ready(function () {
     var responseData; // 转盘数据
     var num = 2; //奖品ID
     var firstTime = false; // 是否第一次免费
+    var isBetaUrl = window.location.href.includes('beta-game') || false;
 
     gbTurntable.init({
         id: 'turntable',
+        isMin: isMin,
         config: function (callback) {
             // 获取奖品信息
             // 奖项 text 属性不能为空，用于显示或抽中奖品提示
@@ -57,11 +93,14 @@ $(document).ready(function () {
             callback && callback(turnTableData);
         },
         getPrize: function (callback) {
+            const prizeUrl = isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/activities/fortune_wheel' : 'https://foroo.co.uk/api/v1/activities/fortune_wheel';
             // 获取中奖信息
             $('#loading').show();
             $('#mengban').show();
             $.ajax({
-                url: 'https://beta-api.foroo.co.uk/api/v1/activities/fortune_wheel',
+                url: 'https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/getPrize',
+                // url: 'https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/getPrize_copy_error',
+                // url: prizeUrl,
                 data: { free: firstTime },
                 headers: { token: token },
                 success: function (res) {
@@ -77,12 +116,17 @@ $(document).ready(function () {
                         firstTime = res.data.free_first_times;
 
                         restTimes = res.data.play_times;
-                        $('#count').html(`${restTimes}/5`);
+                        $('#count').html(`${restTimes}`);
                         callback && callback([num, restTimes]);
                     } else {
+                        // 出错
                         $('#loading').hide();
-                        $('#mengban').hide();
-                        showToast(res.msg);
+
+                        // confirm
+                        $('#confirmText').html(res.msg);
+                        $('#mengban').show();
+                        $('#confirm').show();
+                        // showToast(res.msg);
                     }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -94,6 +138,8 @@ $(document).ready(function () {
         },
         gotBack: function (data) {
             // alert('恭喜抽中' + data);
+
+            $('#pin').attr('src', 'resource/pin.png');
             const prizeData = responseData[num];
             if (prizeData.type === 1) {
                 // 得到积分奖励
@@ -151,9 +197,10 @@ $(document).ready(function () {
 
     var token = getToken();
 
+    const activitiesUrl = isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/activities' : 'https://beta-api.foroo.co.uk/api/v1/activities';
     // 获取转盘页面结构
     $.ajax({
-        url: 'https://beta-api.foroo.co.uk/api/v1/activities',
+        url: activitiesUrl,
         // url: 'https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/zhuanpan',
         data: { type: 2 },
         headers: {
@@ -170,7 +217,7 @@ $(document).ready(function () {
                 responseData = data.data.data;
                 restTimes = data.data.play_times;
                 firstTime = data.data.free_first_times;
-                $('#count').html(`${restTimes}/5`);
+                $('#count').html(`${restTimes}`);
                 turnTableData = responseData.map((r) => {
                     if (r.type === 3) {
                         return {
@@ -251,7 +298,7 @@ $(document).ready(function () {
 
     // 点击蒙版 积分、优惠券都消失
     $('#mengban').click(function () {
-        if ($('#box').css('display') !== 'none') {
+        if ($('#box').css('display') !== 'none' || $('#model').css('display') !== 'none' || $('#confirm').css('display') !== 'none') {
             return;
         }
         $('#mengban').hide();
@@ -271,5 +318,30 @@ $(document).ready(function () {
         $('#offPrizeCount').hide();
         $('#pointPrize').hide();
         $('#pointPrizeContainer').hide();
+    });
+
+    // 点击 rules
+    $('#rules').click(function () {
+        $('#mengban').show();
+        $('#model').show();
+        $('#closeModel').show();
+    });
+
+    // 点击关闭rules
+    $('#closeModel').click(function () {
+        $('#mengban').hide();
+        $('#model').hide();
+        $('#closeModel').hide();
+    });
+
+    // 点击confirm 取消
+    $('#confirmOk').click(function () {
+        $('#confirm').hide();
+        $('#mengban').hide();
+    });
+
+    $('#pin').click(function () {
+        console.log('pin clicked');
+        $('#pin').attr('src', 'resource/pin_press.png');
     });
 });

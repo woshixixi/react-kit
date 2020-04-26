@@ -54,7 +54,7 @@
                 display: flex;
                 align-items: center;
                 font-family: 'PingFangSC-Medium';
-                font-size: 15px;
+                font-size: 4vw;
             }
 
             .point {
@@ -64,6 +64,7 @@
                 margin-right: 2.6vw;
             }
             .rules{
+                font-size: 4vw;
                 width: 26.7vw;
                 height: 8vw;
                 border-top-left-radius: 8vw;
@@ -83,66 +84,73 @@
                 margin-right: 2.6vw;
                 height: 4vw;
             }
-            .body{
+            .wheel-body{
                 background-image: linear-gradient(#eadbae,#9fe2e9);
                 border-top-left-radius: 20px;
                 border-top-right-radius: 20px;
                 width: 100vw;
                 position: absolute;
                 top: 18.7vw;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 bottom: 0;
             }
-
-            .wheelWithLight{
-                margin: auto;
+            .times{
+                width: 56vw;
+                height: 8vw;
+                font-size: 4vw;
+                border-radius: 8vw;
+                font-family: 'PingFangSC-Medium';
                 display: flex;
-                justify-content: center;
+                background: rgba(0, 0, 0, 0.2);
                 align-items: center;
-                position: relative;
+                color: white;
+                justify-content: center;
+                margin-top: 5.3vw;
+                margin-bottom: 0;
+            }
+            .wheel-layer{
+                width: 100vw;
+                height: 100vw;
+                margin-top: 12vw;
+                margin-bottom: 0;
             }
             .wheelWithLightImg{
-                /* width: calc(100vw - 20px);
-                height: calc(100vw - 20px); */
-                width: 355px;
-                height: 355px;
-                position: absolute;
-                /* top: calc((100vh - (100vw - 20px))/2); */
-                top:40vw;
-                margin-left: calc((100vw - 355px) / 2) ;
+                width: 84vw;
+                height: 84vw;
+                margin-top: -100vw;
+                margin-bottom: 0;
+            }
+            .wheel-layer-min{
+                width: 90vw;
+                height: 90vw;
+                margin-top: 3.7vw;
+                margin-bottom: 0;
+            }
+            .wheelWithLightImg-min{
+                width: 74vw;
+                height: 74vw;
+                margin-top: -90vw;
+                margin-bottom: 0;
             }
             .pinImage{
                 position: absolute;
-                /* width: 27.7vw; */
-                width: 104px;
-                left: -10px;
-                top: -40px;
-                /* top: 64vw; */
-                /* margin-left: 36.2vw; */
+                top: -15vw;
+                width: 32.4vw;
+                left: -11vw;
+            }
+            .pinImage-min{
+                position: absolute;
+                top: -9vw;
+                width: 22.4vw;
+                left: -6vw;
             }
             .bottomText{
                 width: 100%;
-                height: 68px;
                 position: absolute;
                 bottom: 0;
-            }
-            .reword{
-                position: fixed;
-                right: 0;
-                height: 25px;
-                width: 134px;
-                bottom: 88px;
-            }
-            .count{
-                color:white;
-                position: fixed;
-                right: 100px;
-                bottom: 90px;
-            }
-            .coin{
-                color:white;
-                position: fixed;
-                right: 29px;
-                bottom: 90px;
             }
             .mengban{
                 width: 100vw;
@@ -165,36 +173,37 @@
                 top: 57vw;
             }
             .offPrizeImg{
-                width: 320px;
-                margin-left: calc(50vw - 180px);
+                width: 92vw;
+                margin-left: 4vw;
                 z-index: 10;
             }
             .offPrizeCount{
                 font-family: 'PingFangSC-Regular';
-                font-size: 27px;
+                font-size: 5vw;
                 position: absolute;
-                margin-left: calc(50vw - 30px);
+                width: 100%;
                 z-index: 10;
-                top: 104px;
-                left: 5px;
+                top: 24vw;
+                left: 50vw;
             }
             .pointPrize{
                 position: absolute;
-                width: calc(100vw - 150px);
-                margin-left: 75px;
+                width: 52vw;
                 z-index: 10;
-                top:56vw;
+                margin: auto;
+                top: 49vw;
+                left: 24vw;
             }
             .pointPrizeCount{
                 font-family: 'PingFangSC-Regular';
-                height: 100px;
-                font-size: 27px;
+                height: 27vw;
+                font-size: 7.2vw;
                 position: absolute;
                 z-index: 10;
                 width: 100vw;
                 line-height: 0px;
                 display: flex;
-                top: 87.5vw;
+                top: 74.5vw;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
@@ -202,12 +211,95 @@
             .pointPrizeCountTextPoint{
                 margin-top: 0;
             }
-            .back{
-                width: 23px;
-                height: 40px;
+            .rule-model{
+                width: 78.7vw;
+                height: 94vw;
+                background-color: white;
+                border-radius: 20px;
                 position: absolute;
-                left: 23px;
-                top: 34px;
+                z-index: 10;
+                top: 9vw;
+                left: 5.35vw;
+                padding: 8vw 5.3vw;
+            }
+            .model-body{
+                width: 100%;
+                height: 94vw;
+                overflow-y: scroll;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .model-body-min{
+                width: 100%;
+                height: 80vw;
+                overflow-y: scroll;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .rule-model-min{
+                width: 78.7vw;
+                height: 80vw;
+                background-color: white;
+                border-radius: 20px;
+                position: absolute;
+                z-index: 10;
+                top: 9vw;
+                left: 5.35vw;
+                padding: 8vw 5.3vw;
+            }
+            .model-title-first{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 0;
+                margin-bottom: 5.3vw;
+            }
+            .model-title{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 8vw;
+                margin-bottom: 5.3vw;
+            }
+            .normal-text{
+                font-size: 3.7vw;
+                font-family: 'PingFangSC-Medium';
+                color:#714e00;
+                margin: 0;
+                width: 100%;
+            }
+            .title-text{
+                font-size: 4.8vw;
+                font-family: 'PingFangSC-Medium';
+                color:#ff6824;
+                margin-left: 5.3vw;
+                margin-right: 5.3vw;
+            }
+            .title-color{
+                width: 5.3vw;
+            }
+            .model-gift{
+                width: 45.1vw;
+                margin-top: 5.3vw;
+                margin-bottom: 1.7vw;
+            }
+            .close-model{
+               width: 10.7vw; 
+               height: 10.7vw; 
+               position: absolute;
+               z-index: 10;
+               top: 123vw;
+               left: 44.65vw;
+            }
+            .close-model-min{
+               width: 10.7vw; 
+               height: 10.7vw; 
+               position: absolute;
+               z-index: 10;
+               top: 110vw;
+               left: 44.65vw;
             }
             .loading{
                 width: 70px;
@@ -286,16 +378,26 @@
                 top: 42vw;
                 left: 0;
             }
+            .toy-min{
+                position: absolute;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                width: 100vw;
+                top: 23vw;
+                left: 0;
+            }
             .box{
-                width: calc(100vw - 100px);
+                width: 66.7vw;
                 z-index: 10;
-                margin-left: -60px;
+                margin-left: -10vw;
             }
             .boxText{
                 font-family: 'AgencyFB-Bold';
                 text-align: center;
                 color: white;
-                font-size: 20px;
+                font-size: 5.3vw;
                 z-index: 10;
                 line-height: 6px;
             }
@@ -304,6 +406,42 @@
                 margin-top: 10px;
                 width: 35px;
             }
+            .confirm-bg{
+                left: 11.35vw;
+                top: 46.7vw;
+                position: absolute;
+                z-index: 20;
+                width: 66.7vw;
+                height: 19.6vw;
+
+            }
+            .confirm-text{
+                width: 66.7vw;
+                height: 19.6vw;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                background-color: white;
+                font-family: 'PingFangSC-Medium';
+                position: absolute;
+                z-index: 20;
+                padding: 8.6vw 5.3vw 0 5.3vw;
+                font-size: 3.7vw;
+            }
+            .confirm-btn{
+                width: 77.3vw;
+                background: #eeeeee;
+                margin-top: 28.2vw;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 11.73vw;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+                font-size: 4.8vw;
+                color: #333333;
+                font-family: 'PingFangSC-Medium';
+            }
+            
         </style>
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, minimal-ui, viewport-fit=cover" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -321,7 +459,7 @@
             <div class="title">
                 <div id="points" class='points'>
                     <span class='left-point'>
-                        <img class='point'  src="resource/points_small.png" />
+                        <img class='point'  src="resource/point.png" />
                         <span id="coin">0</span>
                     </span>
                 </div>
@@ -331,33 +469,83 @@
                 </div>
             </div>
             <!-- 蓝色转盘 -->
-            <div class="body">
-                <p>You have <span id="" span>X</span> more times</p>
+            <div class="wheel-body">
+                <p class="times">You have&nbsp;<span id="count">X</span>&nbsp;more times</p>
 
-                <img  class="wheelWithLightImg" src="resource/wheelframe.png"/>
+                <img id="wheelLayer" class="wheel-layer" src="resource/layer.png" />
+                <img id="wheelWithLightImg" class="wheelWithLightImg" src="resource/wheelframe.png"/>
                 <section id="turntable" class="gb-turntable">
                     <div class="gb-turntable-container">
                         <canvas class="gb-turntable-canvas" width="300" height="300px">抱歉！浏览器不支持。</canvas>
                     </div>
 
-                    <a class="gb-turntable-btn" href="javascript:;">
+                    <a id="gbTurnTableBtn" class="gb-turntable-btn" href="javascript:;">
                         <img id="pin" class="pinImage" src="resource/pin.png" />
                     </a>
                 </section>
 
+                <!-- <img class="wheel-layer-min" src="resource/layer.png" />
+                <img  class="wheelWithLightImg-min" src="resource/wheelframe.png"/>
+                <section id="turntable" class="gb-turntable-min">
+                    <div class="gb-turntable-container">
+                        <canvas class="gb-turntable-canvas" width="300" height="300px">抱歉！浏览器不支持。</canvas>
+                    </div>
+
+                    <a class="gb-turntable-btn-min" href="javascript:;">
+                        <img id="pin" class="pinImage-min" src="resource/pin.png" />
+                    </a>
+                </section> -->
 
             </div>
 
-            <img class="bottomText" src="resource/bottomText.png" />
+            <img class="bottomText" src="resource/bottom.png" />
 
-
-            <span id="count" class="count">5/5</span>
-            <!-- <span id="coin" class="coin">20</span> -->
-            <img class="reword" src="resource/reword.png"/>
             
             <!-- 蒙版 & light -->
             <div id="mengban" class='mengban'></div>
             <img id="light" class="light" src="resource/radientlight.png" />
+
+            <!-- 规则说明弹窗 -->
+            <div id="model"  class="rule-model">
+                <div id="modelBody" class="model-body">
+                  <p class="model-title-first">
+                        <img class="title-color" src="resource/popup_title.png" />
+                    <span class="title-text">Rules & Regulations</span>
+                        <img class="title-color" src="resource/popup_title.png" />
+                    </p>
+                    <p class="normal-text">1.Rewards will be updated regularly;</p>
+                    <p class="model-title">
+                        <img class="title-color" src="resource/popup_title.png" />
+                        <span class="title-text">Terms & Conditions</span>
+                        <img class="title-color" src="resource/popup_title.png" />
+                    </p>
+                    <p class="normal-text">
+                        1.Daily login required to claim 1 free spin        (valid once per day) ;
+                    </p>
+                    <p class="normal-text">
+                        2. Daily sharing required to claim an extra 1 free spin (valid once per day) ;
+                    </p>
+                    <p class="normal-text">
+                        3.The maximum number of spins per day per user is 5;
+                    </p>
+                    <p class="normal-text">
+                        4.Each spin (besides the free spins) costs 20 points.
+                    </p>
+                    <p class="model-title">
+                        <img class="title-color" src="resource/popup_title.png" />
+                        <span class="title-text">Rewards & Details</span>
+                        <img class="title-color" src="resource/popup_title.png" />
+                    </p>
+                    <p class="normal-text">
+                        1.The reward coupons and/or points will be credited to your account.
+                    </p>
+                    <p class="normal-text">
+                        2.Please email us at support@foroo.co.uk with your shipping address and your registering email to claim your prize.
+                    </p>
+                    <img class="model-gift" src="resource/dinasor.png"/>
+                </div>
+           </div>
+            <img id="closeModel" class="close-model" src="resource/Xshare.png"/>
 
             <!-- loading -->
             <div id="loading" class='lds-ring'>
@@ -367,12 +555,12 @@
                 <div></div>
             </div>
 
+            <!-- 大奖 -->
             <div id="box" class="toy">
                 <img class="box" src="resource/toy.png"/>
                 <div class="boxText">
-                    <p>Please email us at support</p>
-                    <p>@faroo.co.uk with your shipping address and</p>
-                    <p>your registering email to claim your prize.</p>
+                    <p>To claim the reward, please check</p>
+                    <p>Information for further detail.</p>
                 </div>
                 <img id="closePrize" class="closePrize" src="resource/Xshare.png"/>
 
@@ -396,6 +584,12 @@
             <!-- toast -->
             <div id="toastBg" class='toastBg'>
                 <span id="toastText" class='toastText'>'error has appeared'</span>
+            </div>
+
+            <!-- confirm -->
+            <div id="confirm" class='confirm-bg'>
+                <div id="confirmText" class='confirm-text'>You have already run out of your chances</div>
+                <div id="confirmOk" class="confirm-btn">Ok</div>
             </div>
 
             <script type="text/javascript" src="/index.js"></script>
