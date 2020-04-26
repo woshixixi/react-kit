@@ -98,9 +98,9 @@ $(document).ready(function () {
             $('#loading').show();
             $('#mengban').show();
             $.ajax({
-                url: 'https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/getPrize',
+                // url: 'https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/getPrize',
                 // url: 'https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/getPrize_copy_error',
-                // url: prizeUrl,
+                url: prizeUrl,
                 data: { free: firstTime },
                 headers: { token: token },
                 success: function (res) {
