@@ -120,7 +120,7 @@
             .wheelWithLightImg{
                 width: 84vw;
                 height: 84vw;
-                margin-top: -100vw;
+                margin-top: 12vw;
                 margin-bottom: 0;
             }
             .wheel-layer-min{
@@ -132,7 +132,7 @@
             .wheelWithLightImg-min{
                 width: 74vw;
                 height: 74vw;
-                margin-top: -90vw;
+                margin-top: 4vw;
                 margin-bottom: 0;
             }
             .pinImage{
@@ -171,6 +171,7 @@
                 position: absolute;
                 z-index: 10;
                 top: 57vw;
+                display: none;
             }
             .offPrizeImg{
                 width: 92vw;
@@ -185,8 +186,10 @@
                 z-index: 10;
                 top: 24vw;
                 left: 50vw;
+                display: none;
             }
             .pointPrize{
+                display: none;
                 position: absolute;
                 width: 52vw;
                 z-index: 10;
@@ -195,6 +198,7 @@
                 left: 24vw;
             }
             .pointPrizeCount{
+                display: none;
                 font-family: 'PingFangSC-Regular';
                 height: 27vw;
                 font-size: 7.2vw;
@@ -208,10 +212,15 @@
                 justify-content: center;
                 align-items: center;
             }
+            .point-prize-count{
+                display: none;
+            }
             .pointPrizeCountTextPoint{
+                display: none;
                 margin-top: 0;
             }
             .rule-model{
+                display: none;
                 width: 78.7vw;
                 height: 94vw;
                 background-color: white;
@@ -239,6 +248,7 @@
                 align-items: center;
             }
             .rule-model-min{
+                display: none;
                 width: 78.7vw;
                 height: 80vw;
                 background-color: white;
@@ -286,6 +296,7 @@
                 margin-bottom: 1.7vw;
             }
             .close-model{
+               display: none;
                width: 10.7vw; 
                height: 10.7vw; 
                position: absolute;
@@ -294,6 +305,7 @@
                left: 44.65vw;
             }
             .close-model-min{
+               display: none;
                width: 10.7vw; 
                height: 10.7vw; 
                position: absolute;
@@ -308,6 +320,7 @@
                 margin-left:calc(50vw - 35px);
                 margin-top: 39vw;
                 z-index: 100;
+                display: none;
             }
             .lds-ring {
                 position: absolute;
@@ -354,6 +367,7 @@
                 justify-content: center;
                 align-items: center;
                 z-index: 20;
+                /* display: none; */
             }
 
             .toastText {
@@ -367,6 +381,7 @@
                 align-items: center;
                 justify-content: center;
                 padding: 10px;
+                /* display: none; */
             }
             .toy{
                 position: absolute;
@@ -377,6 +392,7 @@
                 width: 100vw;
                 top: 42vw;
                 left: 0;
+                /* display: none; */
             }
             .toy-min{
                 position: absolute;
@@ -387,6 +403,7 @@
                 width: 100vw;
                 top: 23vw;
                 left: 0;
+                /* display: none; */
             }
             .box{
                 width: 66.7vw;
@@ -407,6 +424,7 @@
                 width: 35px;
             }
             .confirm-bg{
+                display: none;
                 left: 11.35vw;
                 top: 46.7vw;
                 position: absolute;
@@ -441,6 +459,9 @@
                 color: #333333;
                 font-family: 'PingFangSC-Medium';
             }
+            .none-class{
+                display: none;
+            }
             
         </style>
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, minimal-ui, viewport-fit=cover" />
@@ -472,7 +493,7 @@
             <div class="wheel-body">
                 <p class="times">You have&nbsp;<span id="count">X</span>&nbsp;more times</p>
 
-                <img id="wheelLayer" class="wheel-layer" src="resource/layer.png" />
+                <!-- <img id="wheelLayer" class="wheel-layer" src="resource/layer.png" /> -->
                 <img id="wheelWithLightImg" class="wheelWithLightImg" src="resource/wheelframe.png"/>
                 <section id="turntable" class="gb-turntable">
                     <div class="gb-turntable-container">
@@ -537,7 +558,7 @@
                         <img class="title-color" src="resource/popup_title.png" />
                     </p>
                     <p class="normal-text">
-                        1.The reward coupons and/or points will be credited to your account.
+                        1.The reward coupons and points will be credited to your account.
                     </p>
                     <p class="normal-text">
                         2.Please email us at support@foroo.co.uk with your shipping address and your registering email to claim your prize.
@@ -556,7 +577,7 @@
             </div>
 
             <!-- 大奖 -->
-            <div id="box" class="toy">
+            <div id="box" class="toy none-class">
                 <img class="box" src="resource/toy.png"/>
                 <div class="boxText">
                     <p>To claim the reward, please check</p>
@@ -575,15 +596,15 @@
             <!-- 积分 -->
             <img id="pointPrize" class="pointPrize" src="resource/point-prize.png">
             <div id="pointPrizeContainer" class="pointPrizeCount">
-                <p id="pointPrizeCount">+60</p>
+                <p id="pointPrizeCount" class="point-prize-count">+60</p>
                 <p id="pointPrizeText" class="pointPrizeCountTextPoint"> Points</p>
             </div>
 
 
 
             <!-- toast -->
-            <div id="toastBg" class='toastBg'>
-                <span id="toastText" class='toastText'>'error has appeared'</span>
+            <div id="toastBg" class='toastBg none-class'>
+                <span id="toastText" class='toastText'></span>
             </div>
 
             <!-- confirm -->

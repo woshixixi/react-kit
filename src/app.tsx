@@ -56,6 +56,7 @@ export default class App extends React.Component<any, any> {
         toastText: '',
         isResult: false,
         isMin: true,
+        isDisable: true,
     };
 
     componentDidMount() {
@@ -114,6 +115,7 @@ export default class App extends React.Component<any, any> {
                         sinInDays: Number(res.data.data.sin_in_days),
                         totalPoint: res.data.data.user_points,
                         hasSinIn: res.data.data.sign_in,
+                        isDisable: false,
                     });
                 } else {
                     this.showToast(res.data.msg);
@@ -138,7 +140,7 @@ export default class App extends React.Component<any, any> {
 
     onCheckIn = () => {
         const pointUrl = this.isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/points' : 'https://foroo.co.uk/api/v1/points';
-        if (this.state.hasSinIn) {
+        if (this.state.hasSinIn || this.state.isDisable) {
             return;
         }
         this.setState({ loading: true });
@@ -177,7 +179,7 @@ export default class App extends React.Component<any, any> {
     };
 
     showToast = (text) => {
-        this.setState({ toastText: text, loading: false }, this.stopToast);
+        this.setState({ toastText: text, loading: false, isDisable: false }, this.stopToast);
     };
 
     stopToast = () => {
@@ -298,7 +300,7 @@ export default class App extends React.Component<any, any> {
                         </div>
                     )}
 
-                    {/* <img className='wheel' onClick={this.jumpToWheel} src={Resource.get('wheel')} /> */}
+                    <img className='wheel' onClick={this.jumpToWheel} src={Resource.get('wheel')} />
                 </div>
             </div>
         );
@@ -314,7 +316,7 @@ export default class App extends React.Component<any, any> {
     };
 
     jumpToRules = () => {
-        window.location.href =
-            'https://security.feishu.cn/link/safety?target=https%3A%2F%2Fforoo.co.uk%2Fpoints-rule%2F&lang=zh-CN&scene=messenger&logParams=%7B%22location%22%3A%22messenger%22%7D';
+        // window.location.href =
+        //     'https://security.feishu.cn/link/safety?target=https%3A%2F%2Fforoo.co.uk%2Fpoints-rule%2F&lang=zh-CN&scene=messenger&logParams=%7B%22location%22%3A%22messenger%22%7D';
     };
 }

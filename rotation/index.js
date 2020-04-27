@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var isMin = window.screen.height < 539 || false;
+    var isRunning = false;
 
     if (isMin) {
         // 所有使用-min class
@@ -28,29 +29,31 @@ $(document).ready(function () {
 
     $('#mengban').hide();
     $('#light').hide();
+    $('#box').removeClass('none-class');
     $('#box').hide();
+
+    $('#toastBg').removeClass('none-class');
+    $('#toastBg').hide();
+    $('#toastText').hide();
 
     $('#loading').hide();
 
     // 优惠券
-    $('#offPrize').hide();
-    $('#offPrizeCount').hide();
+    // $('#offPrize').hide();
+    // $('#offPrizeCount').hide();
 
     // 积分
-    $('#pointPrize').hide();
-    $('#pointPrizeCount').hide();
-    $('#pointPrizeText').hide();
-    $('#pointPrizeContainer').hide();
-
-    $('#toastBg').hide();
-    $('#toastText').hide();
+    // $('#pointPrize').hide();
+    // $('#pointPrizeCount').hide();
+    // $('#pointPrizeText').hide();
+    // $('#pointPrizeContainer').hide();
 
     // rules
-    $('#model').hide();
-    $('#closeModel').hide();
+    // $('#model').hide();
+    // $('#closeModel').hide();
 
     // confirm
-    $('#confirm').hide();
+    // $('#confirm').hide();
 
     function showToast(text) {
         $('#toastText').html(text);
@@ -81,7 +84,8 @@ $(document).ready(function () {
     var responseData; // 转盘数据
     var num = 2; //奖品ID
     var firstTime = false; // 是否第一次免费
-    var isBetaUrl = window.location.href.includes('beta-game') || false;
+    // var isBetaUrl = window.location.href.includes('beta-game');
+    var isBetaUrl = true;
 
     gbTurntable.init({
         id: 'turntable',
@@ -93,6 +97,10 @@ $(document).ready(function () {
             callback && callback(turnTableData);
         },
         getPrize: function (callback) {
+            if (isRunning) {
+                return;
+            }
+
             const prizeUrl = isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/activities/fortune_wheel' : 'https://foroo.co.uk/api/v1/activities/fortune_wheel';
             // 获取中奖信息
             $('#loading').show();
@@ -104,6 +112,7 @@ $(document).ready(function () {
                 data: { free: firstTime },
                 headers: { token: token },
                 success: function (res) {
+                    isRunning = true;
                     if (res.status === 5000) {
                         ForooAppCaller.postMessage(JSON.stringify({ action: 'login', target_url: window.location.href }));
                         $('#loading').hide();
@@ -138,12 +147,13 @@ $(document).ready(function () {
         },
         gotBack: function (data) {
             // alert('恭喜抽中' + data);
+            isRunning = false;
 
             $('#pin').attr('src', 'resource/pin.png');
             const prizeData = responseData[num];
             if (prizeData.type === 1) {
                 // 得到积分奖励
-                totalPoint = totalPoint + prizeData.point;
+                totalPoint = totalPoint + prizeData.point - 20;
                 $('#coin').html(totalPoint);
 
                 $('#pointPrizeCount').html(prizeData.point);
@@ -197,7 +207,7 @@ $(document).ready(function () {
 
     var token = getToken();
 
-    const activitiesUrl = isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/activities' : 'https://beta-api.foroo.co.uk/api/v1/activities';
+    const activitiesUrl = isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/activities' : 'https://foroo.co.uk/api/v1/activities';
     // 获取转盘页面结构
     $.ajax({
         url: activitiesUrl,
@@ -212,7 +222,7 @@ $(document).ready(function () {
                 $('#loading').hide();
                 $('#mengban').hide();
             } else if (data.status === 1) {
-                totalPoint = data.data.point;
+                totalPoint = Number(data.data.point);
                 $('#coin').html(totalPoint);
                 responseData = data.data.data;
                 restTimes = data.data.play_times;
@@ -322,6 +332,9 @@ $(document).ready(function () {
 
     // 点击 rules
     $('#rules').click(function () {
+        if (isRunning) {
+            return;
+        }
         $('#mengban').show();
         $('#model').show();
         $('#closeModel').show();
@@ -341,7 +354,7 @@ $(document).ready(function () {
     });
 
     $('#pin').click(function () {
-        console.log('pin clicked');
+        // console.log('pin clicked');
         $('#pin').attr('src', 'resource/pin_press.png');
     });
 });
