@@ -83,8 +83,9 @@ $(document).ready(function () {
     ]; // 转盘盘面
     var responseData; // 转盘数据
     var num = 2; //奖品ID
-    var firstTime = false; // 是否第一次免费
-    // var isBetaUrl = window.location.href.includes('beta-game');
+    // var firstTime = false; // 是否第一次免费
+    var _zFree = 0;
+    // var isBetaUrl = window.location.href.includes('beta-game') || false;
     var isBetaUrl = true;
 
     gbTurntable.init({
@@ -101,7 +102,7 @@ $(document).ready(function () {
                 return;
             }
 
-            const prizeUrl = isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/activities/fortune_wheel' : 'https://foroo.co.uk/api/v1/activities/fortune_wheel';
+            const prizeUrl = isBetaUrl ? 'https://beta.foroo.co.uk/api/v1/activities/fortune_wheel' : 'https://foroo.co.uk/api/v1/activities/fortune_wheel';
             // 获取中奖信息
             $('#loading').show();
             $('#mengban').show();
@@ -109,7 +110,7 @@ $(document).ready(function () {
                 // url: 'https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/getPrize',
                 // url: 'https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/getPrize_copy_error',
                 url: prizeUrl,
-                data: { free: firstTime },
+                data: { free: _zFree },
                 headers: { token: token },
                 success: function (res) {
                     isRunning = true;
@@ -122,7 +123,7 @@ $(document).ready(function () {
                         $('#mengban').hide();
                         num = res.data.prize - 1;
                         // num 奖品id restTimes 可抽奖次数
-                        firstTime = res.data.free_first_times;
+                        _zFree = res.data.is_share ? 2 : res.data.free_first_times ? 1 : 0;
 
                         restTimes = res.data.play_times;
                         $('#count').html(`${restTimes}`);
@@ -153,7 +154,7 @@ $(document).ready(function () {
             const prizeData = responseData[num];
             if (prizeData.type === 1) {
                 // 得到积分奖励
-                totalPoint = totalPoint + prizeData.point - 20;
+                totalPoint = totalPoint + prizeData.point - (_zFree == 0 ? 20 : 0);
                 $('#coin').html(totalPoint);
 
                 $('#pointPrizeCount').html(prizeData.point);
@@ -207,7 +208,7 @@ $(document).ready(function () {
 
     var token = getToken();
 
-    const activitiesUrl = isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/activities' : 'https://foroo.co.uk/api/v1/activities';
+    const activitiesUrl = isBetaUrl ? 'https://beta.foroo.co.uk/api/v1/activities' : 'https://foroo.co.uk/api/v1/activities';
     // 获取转盘页面结构
     $.ajax({
         url: activitiesUrl,
@@ -226,7 +227,7 @@ $(document).ready(function () {
                 $('#coin').html(totalPoint);
                 responseData = data.data.data;
                 restTimes = data.data.play_times;
-                firstTime = data.data.free_first_times;
+                _zFree = data.data.is_share ? 2 : data.data.free_first_times ? 1 : 0;
                 $('#count').html(`${restTimes}`);
                 turnTableData = responseData.map((r) => {
                     if (r.type === 3) {

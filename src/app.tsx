@@ -91,7 +91,7 @@ export default class App extends React.Component<any, any> {
     }
 
     fetchPage = () => {
-        const url = this.isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/activities' : 'https://foroo.co.uk/api/v1/activities';
+        const url = this.isBetaUrl ? 'https://beta.foroo.co.uk/api/v1/activities' : 'https://foroo.co.uk/api/v1/activities';
         axios
             // .get('https://mock.souche-inc.com/mock/5da5615d40053079d4748060/czhang/beta-api.foroo.co.uk/api/api/v1/activitys', {
             .get(url, {
@@ -139,7 +139,7 @@ export default class App extends React.Component<any, any> {
     }
 
     onCheckIn = () => {
-        const pointUrl = this.isBetaUrl ? 'https://beta-api.foroo.co.uk/api/v1/points' : 'https://foroo.co.uk/api/v1/points';
+        const pointUrl = this.isBetaUrl ? 'https://beta.foroo.co.uk/api/v1/points' : 'https://foroo.co.uk/api/v1/points';
         if (this.state.hasSinIn || this.state.isDisable) {
             return;
         }
@@ -316,7 +316,8 @@ export default class App extends React.Component<any, any> {
     };
 
     jumpToRules = () => {
-        // window.location.href =
-        //     'https://security.feishu.cn/link/safety?target=https%3A%2F%2Fforoo.co.uk%2Fpoints-rule%2F&lang=zh-CN&scene=messenger&logParams=%7B%22location%22%3A%22messenger%22%7D';
+        // https://roo.co.uk/points-rule/
+        window.location.href = 'https://foroo.co.uk/points-rule/';
+        // 'https://security.feishu.cn/link/safety?target=https%3A%2F%2Fforoo.co.uk%2Fpoints-rule%2F&lang=zh-CN&scene=messenger&logParams=%7B%22location%22%3A%22messenger%22%7D';
     };
 }
