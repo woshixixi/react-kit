@@ -30,7 +30,10 @@ $(document).ready(function () {
     }
 
     $('#mengban').hide();
+
+    $('#light').removeClass('none-class');
     $('#light').hide();
+
     $('#box').removeClass('none-class');
     $('#box').hide();
 
