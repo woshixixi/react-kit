@@ -17,6 +17,8 @@ $(document).ready(function () {
         // rule modal
         $('#model').removeClass('rule-model');
         $('#model').addClass('rule-model-min');
+        $('#model').addClass('none-class');
+        $('#model').hide();
         $('#modelBody').removeClass('model-body-min');
         $('#modelBody').addClass('model-body-min');
         $('#closeModel').removeClass('close-model');
@@ -37,6 +39,9 @@ $(document).ready(function () {
     $('#toastText').hide();
 
     $('#loading').hide();
+
+    $('#model').addClass('none-class');
+    $('#model').hide();
 
     // 优惠券
     // $('#offPrize').hide();
