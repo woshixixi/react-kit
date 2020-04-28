@@ -85,8 +85,8 @@ $(document).ready(function () {
     var num = 2; //奖品ID
     // var firstTime = false; // 是否第一次免费
     var _zFree = 0;
-    // var isBetaUrl = window.location.href.includes('beta-game') || false;
-    var isBetaUrl = true;
+    var isBetaUrl = window.location.href.includes('beta-game');
+    // var isBetaUrl = true;
 
     gbTurntable.init({
         id: 'turntable',
