@@ -2,6 +2,9 @@ $(document).ready(function () {
     var isMin = window.screen.height < 539 || false;
     var isRunning = false;
 
+    var is_share = false;
+    window.doshare = (b) => (is_share = b);
+
     if (isMin) {
         // 所有使用-min class
         $('#wheelLayer').removeClass('wheel-layer');
@@ -133,7 +136,10 @@ $(document).ready(function () {
                         $('#mengban').hide();
                         num = res.data.prize - 1;
                         // num 奖品id restTimes 可抽奖次数
-                        _zFree = res.data.is_share ? 2 : res.data.free_first_times ? 1 : 0;
+
+                        _zFree = is_share ? 2 : res.data.free_first_times ? 1 : 0;
+                        is_share = false;
+                        // _zFree = res.data.is_share ? 2 : res.data.free_first_times ? 1 : 0;
 
                         totalPoint = res.data.point;
 
@@ -166,7 +172,7 @@ $(document).ready(function () {
             const prizeData = responseData[num];
             if (prizeData.type === 1) {
                 // 得到积分奖励
-                // totalPoint = totalPoint + prizeData.point - (_zFree == 0 ? 20 : 0);
+
                 $('#coin').html(totalPoint);
 
                 $('#pointPrizeCount').html(prizeData.point);
@@ -239,7 +245,9 @@ $(document).ready(function () {
                 $('#coin').html(totalPoint);
                 responseData = data.data.data;
                 restTimes = data.data.play_times;
-                _zFree = data.data.is_share ? 2 : data.data.free_first_times ? 1 : 0;
+                _zFree = is_share ? 2 : data.data.free_first_times ? 1 : 0;
+                is_share = false;
+                // _zFree = data.data.is_share ? 2 : data.data.free_first_times ? 1 : 0;
                 $('#count').html(`${restTimes}`);
                 turnTableData = responseData.map((r) => {
                     if (r.type === 3) {
