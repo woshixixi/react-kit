@@ -52,7 +52,7 @@ export default class App extends React.Component<any, any> {
         sinInDays: 0,
         hasSinIn: false,
         totalPoint: 0,
-        loading: false,
+        loading: true,
         toastText: '',
         isResult: false,
         isMin: true,
@@ -116,6 +116,7 @@ export default class App extends React.Component<any, any> {
                         totalPoint: res.data.data.user_points,
                         hasSinIn: res.data.data.sign_in,
                         isDisable: false,
+                        loading: false,
                     });
                 } else {
                     this.showToast(res.data.msg);
@@ -197,7 +198,6 @@ export default class App extends React.Component<any, any> {
         const firstTreeDays = listData.slice(0, 3);
         const secondTreeDays = listData.slice(3, 6);
         const lastDay = listData[6];
-        console.log('render:', window.screen.height, this.isMin);
         const isMin = this.isMin || false;
         return (
             <div className='app'>
@@ -283,7 +283,11 @@ export default class App extends React.Component<any, any> {
                         ))}
                         <div className={sinInDays >= 7 ? 'card-body-red' : 'card-body'} key={7}>
                             <div className='card-top'>Day&nbsp;{7}</div>
-                            {sinInDays >= 7 ? <img className='card-point' src={Resource.get('coupon')} /> : <img className='card-point' src={Resource.get('gift')} />}
+                            {sinInDays >= 7 ? (
+                                <img className='card-point' src={Resource.get('coupon')} />
+                            ) : (
+                                <img className='card-point' src={Resource.get('gift')} />
+                            )}
                             <span className={sinInDays >= 7 ? 'card-point-text-white' : 'card-point-text-last'}>{lastDay.point}</span>
                         </div>
                     </div>
