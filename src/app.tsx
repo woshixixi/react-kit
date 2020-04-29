@@ -283,11 +283,7 @@ export default class App extends React.Component<any, any> {
                         ))}
                         <div className={sinInDays >= 7 ? 'card-body-red' : 'card-body'} key={7}>
                             <div className='card-top'>Day&nbsp;{7}</div>
-                            {sinInDays >= 7 ? (
-                                <img className='card-point' src={Resource.get('coupon')} />
-                            ) : (
-                                <img className='card-point' src={Resource.get('gift')} />
-                            )}
+                            {sinInDays >= 7 ? <img className='card-point' src={Resource.get('coupon')} /> : <img className='card-point' src={Resource.get('gift')} />}
                             <span className={sinInDays >= 7 ? 'card-point-text-white' : 'card-point-text-last'}>{lastDay.point}</span>
                         </div>
                     </div>
