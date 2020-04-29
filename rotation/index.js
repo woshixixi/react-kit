@@ -36,7 +36,7 @@ $(document).ready(function () {
     $('#toastBg').hide();
     $('#toastText').hide();
 
-    $('#mengban').hide();
+    // $('#mengban').hide();
 
     $('#light').removeClass('none-class');
     $('#light').hide();
@@ -44,7 +44,7 @@ $(document).ready(function () {
     $('#box').removeClass('none-class');
     $('#box').hide();
 
-    $('#loading').hide();
+    // $('#loading').hide();
 
     $('#model').addClass('none-class');
     $('#model').hide();
@@ -52,14 +52,14 @@ $(document).ready(function () {
     $('#closeModel').hide();
 
     // 优惠券
-    // $('#offPrize').hide();
-    // $('#offPrizeCount').hide();
+    $('#offPrize').hide();
+    $('#offPrizeCount').hide();
 
     // 积分
-    // $('#pointPrize').hide();
-    // $('#pointPrizeCount').hide();
-    // $('#pointPrizeText').hide();
-    // $('#pointPrizeContainer').hide();
+    $('#pointPrize').hide();
+    $('#pointPrizeCount').hide();
+    $('#pointPrizeText').hide();
+    $('#pointPrizeContainer').hide();
 
     // rules
     // $('#model').hide();
@@ -236,6 +236,9 @@ $(document).ready(function () {
             token: token,
         },
         success: function (data) {
+            $('#mengban').hide();
+            $('#loading').hide();
+
             if (data.status === 5000) {
                 ForooAppCaller.postMessage(JSON.stringify({ action: 'login', target_url: window.location.href }));
                 $('#loading').hide();
