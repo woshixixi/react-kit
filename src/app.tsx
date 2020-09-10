@@ -23,7 +23,7 @@ export default class App extends React.Component<any, any> {
     render() {
         return (
             <ThemContext.Provider value={{ them: this.state.them, changeThem: this.changeThem }}>
-                <button className='btn' onClick={this.onClickLike}>
+                {/* <button className='btn' onClick={this.onClickLike}>
                     like
                 </button>
                 <button className='btn' onClick={() => this.setState({ name: 'parent250' })}>
@@ -31,7 +31,7 @@ export default class App extends React.Component<any, any> {
                 </button>
                 {this.state.liked && <p>like is clicked</p>}
                 <Test />
-                {this.state.liked ? <Parent name={this.state.name} /> : null}
+                {this.state.liked ? <Parent name={this.state.name} /> : null} */}
                 <DragPage />
             </ThemContext.Provider>
         );

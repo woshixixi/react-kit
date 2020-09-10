@@ -39,7 +39,7 @@ img {
 }
 
 .btn-comp {
-    margin: 30px;
+    padding: 30px;
 }
 
 .component-btn {
@@ -47,4 +47,18 @@ img {
     height: 40px;
     background-color: blue;
     color: yellow;
+}
+
+.active {
+    border: 1px solid red;
+}
+
+.box-container {
+    background-color: pink;
+    height: 100px;
+    transition-duration: 0.3s;
+}
+
+.hidden {
+    display: none;
 }
